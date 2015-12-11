@@ -8,36 +8,34 @@
  * WiFi Direct, Near Field Communication etc.
  */
 
-import ketai.camera.*;
-import ketai.cv.facedetector.*;
-import ketai.data.*;
-import ketai.net.*;
-import ketai.net.bluetooth.*;
-import ketai.net.nfc.*;
-import ketai.net.nfc.record.*;
-import ketai.net.wifidirect.*;
 import ketai.sensors.*;
 import ketai.ui.*;
 
+KetaiList menuList;
+
 BaseClass cat;
 Levels level1;
-
 Board bg;
 Board bg1;
 
-int levels = 1;
+int levels = 0;
 boolean update = false;
 String direct;
 
 PImage[] img;
 PImage ground;
 PImage obst;
+ArrayList<String> menuChoice = new ArrayList<String>();
+
 
 void setup()
 {
   // Full screen size
   size(displayWidth, displayHeight);
   colorMode(RGB, 255, 255, 255, 100);
+  textSize(height/20);
+  textAlign(CENTER);
+
   // Display game in Landscape view
   orientation(LANDSCAPE);
   frameRate(60);
@@ -51,35 +49,53 @@ void setup()
 
 void draw()
 {
-  if (levels == 1)
+  if (levels == 0)
+  {
+    drawMenu();
+  } else if (levels == 1)
   {
     image(img[0], 0, 0);
     level1.drawlevel();
+    bg.drawBg();
+    bg1.drawBg();
+    cat.update(direct);
+    cat.render();
   }
-
-  bg.drawBg();
-  bg1.drawBg();
-  cat.update(direct);
-  cat.render();
 }
 
 
 void mousePressed()
 {
-  // If mouse is pressed on the left sphere
-  if (mouseX < width/5 && mouseY > height- width/5)
+
+  if (levels == 0 && mouseY > height-height/10)
   {
-    direct = "left";
-  } // If mouse is pressed on the right sphere 
-  else if (mouseX > width - (width/10) && mouseY > height-width/5)
-  {
-    direct = "up";
+    if (mouseX < width/3)
+    {
+      menuList = new KetaiList(this, menuChoice);
+    } else if (mouseX > width/3 && mouseX < (width/3)*2)
+    {
+      KetaiKeyboard.toggle(this);
+    }
+  } else {
+    // If mouse is pressed on the left sphere
+    if (mouseX < width/5 && mouseY > height- width/5)
+    {
+      direct = "left";
+    } // If mouse is pressed on the right sphere 
+    else if (mouseX > width - (width/10) && mouseY > height-width/5)
+    {
+      direct = "up";
+    }
   }
 }
 
 
 void loadData()
 {
+  menuChoice.add("Level 1");
+  menuChoice.add("Level 2");
+  menuChoice.add("Level 3");
+
   // Load background for all 3 levels
   for (int i = 0; i < img.length; i++)
   {
@@ -99,4 +115,42 @@ void loadData()
 
   bg = new Board(width/10, height - width/10, width/5);
   bg1 = new Board(width - width/10, height - width/10, width/5);
+}
+
+void drawMenu()
+{
+  pushStyle();
+  stroke(0);
+  image(img[0], 0, 0);
+  fill(255);
+
+  rect(0, height, width/3, -height/10);
+  rect(width/3, height, width/3, -height/10);
+  rect((width/3)*2, height, width/3, -height/10);
+
+  fill(0);
+  text("Menu", width/6, height-height/20);
+  text("Keyboard", (width/6)*3, height -height/20);
+  text("Exit", (width/6)*5, height-height/20);
+}
+
+int i = 1;
+
+void onKetaiListSelection(KetaiList list)
+{
+  String levelChoice = list.getSelection();
+
+  if (levelChoice == "Level 1")
+  {
+    levels = 1;
+  } else if (levelChoice == "Level 2")
+  {
+    levels = 0;
+  } else if (levelChoice == "Level 3")
+  {
+    levels = 0;
+  } else
+  {
+    levels = 0;
+  }
 }

@@ -44,6 +44,7 @@ class Cat extends BaseClass
     } else if (direction == "left" && x > width/10)
     {
       x = x - (height/20);
+      direction = "";
     } else
     {
     }
