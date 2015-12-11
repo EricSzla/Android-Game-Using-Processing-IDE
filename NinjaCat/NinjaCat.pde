@@ -19,12 +19,12 @@ Board bg;
 Board bg1;
 
 int levels = 0;
-boolean update = false;
-String direct;
+boolean goup = false;
 
 PImage[] img;
 PImage ground;
 PImage obst;
+PImage fire;
 ArrayList<String> menuChoice = new ArrayList<String>();
 
 
@@ -35,12 +35,12 @@ void setup()
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
   textAlign(CENTER);
+  imageMode(CENTER);
 
   // Display game in Landscape view
   orientation(LANDSCAPE);
   frameRate(60);
   smooth();
-  direct = "";
   img = new PImage[3];
 
   // Call load data function
@@ -54,12 +54,31 @@ void draw()
     drawMenu();
   } else if (levels == 1)
   {
-    image(img[0], 0, 0);
     level1.drawlevel();
-    bg.drawBg();
     bg1.drawBg();
-    cat.update(direct);
     cat.render();
+
+    if (goup)
+    {
+      println("after go up");
+      if (cat.y > height/2)
+      {
+        println("going up");
+        cat.y--;
+      }
+
+      if (cat.y == height - (height/3))
+      {
+        goup = !goup;
+      }
+    } else
+    {
+      if (cat.y < height - (height/3))
+      {
+        println("going down");
+        cat.y++;
+      }
+    }
   }
 }
 
@@ -76,15 +95,18 @@ void mousePressed()
     {
       KetaiKeyboard.toggle(this);
     }
-  } else {
-    // If mouse is pressed on the left sphere
-    if (mouseX < width/5 && mouseY > height- width/5)
+  } else 
+  {
+    if (mouseX > cat.x)
     {
-      direct = "left";
-    } // If mouse is pressed on the right sphere 
-    else if (mouseX > width - (width/10) && mouseY > height-width/5)
+      cat.x = cat.x + height/20;
+    } else if (mouseX < cat.x)
     {
-      direct = "up";
+      cat.x = cat.x - height/20;
+    } else if (mouseY < cat.y)
+    {
+      goup = true;
+      println(goup);
     }
   }
 }
@@ -104,24 +126,25 @@ void loadData()
   }
 
   // Load images
-  ground = loadImage("ground.jpg");
-  ground.resize(width, height/5);
+  ground = loadImage("ground.png");
+  ground.resize(width, height/2);
   obst = loadImage("tower.png");
   obst.resize(width/10, height/10);
+  fire = loadImage("fire.gif");
+  fire.resize(width/4, height/4);
+
 
   // Initialize classes
   cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
   level1 = new LevelOne(img[0], obst, ground);
-
-  bg = new Board(width/10, height - width/10, width/5);
-  bg1 = new Board(width - width/10, height - width/10, width/5);
+  bg1 = new Board(width - width/10, height - width/10, width/10);
 }
 
 void drawMenu()
 {
   pushStyle();
   stroke(0);
-  image(img[0], 0, 0);
+  image(img[0], width/2, height/2);
   fill(255);
 
   rect(0, height, width/3, -height/10);

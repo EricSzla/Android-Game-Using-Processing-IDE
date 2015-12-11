@@ -16,37 +16,8 @@ class Cat extends BaseClass
     image(img, x, y);
   }
 
-  void update(String direction)
+  void shoot()
   {
-    println(direction);
-    if (direction == "up")
-    {
-      if (y > height/2 - height/3 && !isup)
-      {
-        y = y - height/30;
-        if (y <= height/2 - height/3 && isup == false)
-        {
-          isup = true;
-          println(isup);
-        }
-      } else if (isup == true)
-      {
-        y = y + height/30;
-        if (y >= height - height/3)
-        {
-          isup = false;
-          direction = "";
-        }
-      }
-    } else if (direction == "right" && x < width - (width/5))
-    {
-      x = x + height/20;
-    } else if (direction == "left" && x > width/10)
-    {
-      x = x - (height/20);
-      direction = "";
-    } else
-    {
-    }
+    
   }
-}
+} // end class

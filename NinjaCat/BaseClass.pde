@@ -13,5 +13,5 @@ abstract class BaseClass
 
   abstract void render();
 
-  abstract void update(String direction);
+  abstract void shoot();
 }
