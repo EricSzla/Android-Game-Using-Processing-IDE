@@ -6,7 +6,7 @@ class Cat extends BaseClass
   {
     super(x, y);
     this.img = loadImage("Cat/cat_walk.gif");
-    this.img.resize(width/5, height/5);
+    this.img.resize(width/5, height/3);
   }
 
   void render()
@@ -16,6 +16,6 @@ class Cat extends BaseClass
 
   void update()
   {
-    y = y - height/20;
+    x = x + height/20;
   }
 }
