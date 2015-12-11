@@ -15,10 +15,9 @@ KetaiList menuList;
 
 BaseClass cat;
 Levels level1;
-Board bg;
-Board bg1;
 
 int levels = 0;
+int x, y = 0;
 boolean goup = false;
 
 PImage[] img;
@@ -43,6 +42,9 @@ void setup()
   smooth();
   img = new PImage[3];
 
+  x = width - width/10;
+  y = height - width/10;
+
   // Call load data function
   loadData();
 }
@@ -55,30 +57,8 @@ void draw()
   } else if (levels == 1)
   {
     level1.drawlevel();
-    bg1.drawBg();
+    drawBg();
     cat.render();
-
-    if (goup)
-    {
-      println("after go up");
-      if (cat.y > height/2)
-      {
-        println("going up");
-        cat.y--;
-      }
-
-      if (cat.y == height - (height/3))
-      {
-        goup = !goup;
-      }
-    } else
-    {
-      if (cat.y < height - (height/3))
-      {
-        println("going down");
-        cat.y++;
-      }
-    }
   }
 }
 
@@ -94,19 +74,6 @@ void mousePressed()
     } else if (mouseX > width/3 && mouseX < (width/3)*2)
     {
       KetaiKeyboard.toggle(this);
-    }
-  } else 
-  {
-    if (mouseX > cat.x)
-    {
-      cat.x = cat.x + height/20;
-    } else if (mouseX < cat.x)
-    {
-      cat.x = cat.x - height/20;
-    } else if (mouseY < cat.y)
-    {
-      goup = true;
-      println(goup);
     }
   }
 }
@@ -137,7 +104,6 @@ void loadData()
   // Initialize classes
   cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
   level1 = new LevelOne(img[0], obst, ground);
-  bg1 = new Board(width - width/10, height - width/10, width/10);
 }
 
 void drawMenu()
@@ -176,4 +142,14 @@ void onKetaiListSelection(KetaiList list)
   {
     levels = 0;
   }
+}
+
+void drawBg()
+{
+  pushMatrix();
+
+  tint(255, 126);
+  image(fire, x, y);
+
+  popMatrix();
 }

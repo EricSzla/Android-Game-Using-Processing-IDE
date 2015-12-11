@@ -3,7 +3,7 @@ abstract class BaseClass
   float x;
   float y;
   float y2;
-  
+
   BaseClass(float x, float y, float y2)
   {
     this.x = x;
@@ -12,6 +12,6 @@ abstract class BaseClass
   }
 
   abstract void render();
-
+  abstract void update();
   abstract void shoot();
 }

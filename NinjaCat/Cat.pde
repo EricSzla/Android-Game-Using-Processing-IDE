@@ -13,11 +13,24 @@ class Cat extends BaseClass
 
   void render()
   {
+    if (mousePressed)
+    {
+      if (mouseX > cat.x)
+      {
+        cat.x = cat.x + height/20;
+      } else if (mouseX < cat.x)
+      {
+        cat.x = cat.x - height/20;
+      }
+    }
+    
     image(img, x, y);
   }
 
+  void update()
+  {
+  }
   void shoot()
   {
-    
   }
 } // end class
