@@ -24,6 +24,8 @@ PImage[] img;
 PImage ground;
 PImage obst;
 PImage fire;
+
+ArrayList<BaseClass> objectsArray = new ArrayList<BaseClass>();
 ArrayList<String> menuChoice = new ArrayList<String>();
 
 
@@ -47,6 +49,11 @@ void setup()
 
   // Call load data function
   loadData();
+
+  // Initialize classes
+  cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
+  objectsArray.add(cat);
+  level1 = new LevelOne(img[0], obst, ground);
 }
 
 void draw()
@@ -58,7 +65,13 @@ void draw()
   {
     level1.drawlevel();
     drawBg();
-    cat.render();
+
+    for (int i = 0; i <= objectsArray.size()-1; i++)
+    {
+      BaseClass draw = objectsArray.get(i);
+      draw.update();
+      draw.render();
+    }
   }
 }
 
@@ -99,11 +112,6 @@ void loadData()
   obst.resize(width/10, height/10);
   fire = loadImage("fire.gif");
   fire.resize(width/4, height/4);
-
-
-  // Initialize classes
-  cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
-  level1 = new LevelOne(img[0], obst, ground);
 }
 
 void drawMenu()
