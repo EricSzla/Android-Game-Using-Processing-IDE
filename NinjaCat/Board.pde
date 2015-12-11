@@ -1,7 +1,5 @@
 class Board
-{
-  //PImage img;
-  // or movie ? 
+{ 
   float x, y;
   float radius;
 
@@ -16,10 +14,11 @@ class Board
 
   void drawBg()
   {
-    //background(255); // (img)
+    pushMatrix();
     fill(255);
-    tint(255, 127);
+    tint(255, 126);
     ellipse(x, y, radius, radius);
+    popMatrix();
   }
   
   
