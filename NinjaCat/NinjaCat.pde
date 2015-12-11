@@ -18,7 +18,7 @@ Levels level1;
 
 int levels = 0;
 int x, y = 0;
-boolean goup = false;
+
 
 PImage[] img;
 PImage ground;

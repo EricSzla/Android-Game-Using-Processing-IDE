@@ -8,7 +8,8 @@ class LevelOne extends Levels
   void drawlevel()
   {
     image(img, width/2, height/2);
-    image(platform, width/2, height);
+    image(platform, x + x2, y);
+    image(platform, (x * 3.5) + x2, y);
   }
 
   void updatelevel()

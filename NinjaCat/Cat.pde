@@ -1,12 +1,14 @@
 class Cat extends BaseClass
 {
   PImage img;
+  Boolean goup;
 
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
     this.img = loadImage("Cat/cat_walk.gif");
     this.img.resize(width/5, height/3);
+    this.goup = false;
   }
 
   void render()
@@ -21,16 +23,45 @@ class Cat extends BaseClass
 
   void update()
   {
+    if (goup == true)
+    {
+      pos.y = pos.y - speed;
+      println("I should be up !");
+      if (pos.y <= height - (height/2))
+      {
+        println("Changing to false!");
+        goup = !goup;
+      }
+    } else if (goup == false)
+    {
+      if (pos.y < height - (height/3))
+      {
+        println("going down brruuummm");
+        pos.y = pos.y + speed;
+      }
+    }
+
 
     if (mousePressed)
     {
       if (mouseX > pos.x)
       {
-        pos.x = pos.x + speed;
+        pos.x = pos.x + speed/2;
+        level1.x2 = level1.x2 - speed*2;
       } else if (mouseX < pos.x)
       {
 
         pos.x = pos.x - speed;
+      }
+      
+      if (mouseY < height - (height/3))
+      {
+        println("im in");
+        if (pos.y == height - (height/3) && goup == false)
+        {
+          println("going up");
+          goup = !goup;
+        }
       }
 
       // Shoot

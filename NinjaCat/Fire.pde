@@ -10,26 +10,20 @@ class Fire extends BaseClass
 
   void render()
   {
-
-
     pushMatrix();
     println("Fire at: x: " + pos.x + " y: " + pos.y);
-    //translate(pos.x, pos.y);
     image(fire, pos.x, pos.y);
     popMatrix();
   }
 
   void update()
   {
-    println("im in ");
     if (counter < 5)
     {
-      println("Incrementing fire!");
       pos.x = pos.x + speed;
       counter++;
     } else if (counter == 5)
     {
-      println("removing fire");
       counter = 0;
       objectsArray.remove(this);
     }
