@@ -11,7 +11,6 @@ class Fire extends BaseClass
   void render()
   {
     pushMatrix();
-    println("Fire at: x: " + pos.x + " y: " + pos.y);
     image(fire, pos.x, pos.y);
     popMatrix();
   }

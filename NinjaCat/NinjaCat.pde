@@ -24,6 +24,7 @@ PImage[] img;
 PImage ground;
 PImage obst;
 PImage fire;
+PImage fire2;
 
 ArrayList<BaseClass> objectsArray = new ArrayList<BaseClass>();
 ArrayList<String> menuChoice = new ArrayList<String>();
@@ -63,6 +64,7 @@ void draw()
     drawMenu();
   } else if (levels == 1)
   {
+    level1.updatelevel();
     level1.drawlevel();
     drawBg();
 
@@ -101,16 +103,17 @@ void loadData()
   // Load background for all 3 levels
   for (int i = 0; i < img.length; i++)
   {
-    img[i] = loadImage((i+1) + ".jpg"); //"levels/" + 
+    img[i] = loadImage("levels/" + (i+1) + ".jpg");
     img[i].resize(width, height);
   }
 
   // Load images
-  ground = loadImage("ground.png");
+  ground = loadImage("levels/ground.png");
   ground.resize(width, height/2);
-  obst = loadImage("tower.png");
+  obst = loadImage("levels/tower.png");
   obst.resize(width/10, height/10);
-  fire = loadImage("fire.gif");
+  fire = loadImage("Cat/fire.gif");
+  fire2 = loadImage("Cat/fire.gif");
   fire.resize(width/4, height/4);
 }
 
