@@ -5,18 +5,16 @@ class Cat extends BaseClass
   PImage lives;
   int livesLeft;
   int ammoLeft;
+  int i;
 
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
-
-    this.cat = loadImage("Cat/cat_walk.gif");
-    this.cat.resize(width/5, height/3);
     this.lives = loadImage("Cat/lives.png");
     this.lives.resize(width/15, height/15);
     this.livesLeft = 3;
     this.ammoLeft = 3;
-
+    this.i = 0;
     this.goup = false;
   }
 
@@ -26,8 +24,9 @@ class Cat extends BaseClass
     rect(width- width/10, height - height/10, width/10, width/10);
 
     pushMatrix();
+    
     // Draw Cat
-    image(cat, pos.x, pos.y);
+    image(catWalk[i], pos.x, pos.y);
 
     // Draw lives
     imageMode(CORNER);
@@ -64,10 +63,24 @@ class Cat extends BaseClass
       {
         pos.x = pos.x + speed/2;
         level1.x2 = level1.x2 - speed*2;
+        if (i < 3)
+        {
+          i++;
+        } else
+        {
+          i = 0;
+        }
       } else if (mouseX < pos.x)
       {
 
         pos.x = pos.x - speed;
+        if (i > 0)
+        {
+          i--;
+        } else
+        {
+          i = 2;
+        }
       }
 
       if (mouseY < height - (height/3))
@@ -84,7 +97,6 @@ class Cat extends BaseClass
       {
         if (mouseY > height-height/10 && mouseY < height)
         {
-          println("Fire in the hole !");
           Fire fire = new Fire();
           fire.pos.x = pos.x;
           fire.pos.y = pos.y;

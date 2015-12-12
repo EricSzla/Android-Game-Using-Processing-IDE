@@ -1,30 +1,32 @@
 class Fire extends BaseClass
 {
   int counter;
+  int i;
 
   Fire()
   {
     speed = height/10;
     this.counter = 0;
+    this.i = 0;
   }
 
   void render()
   {
     pushMatrix();
-    image(fire, pos.x, pos.y);
+    image(catFire[i], pos.x, pos.y);
     popMatrix();
   }
 
   void update()
   {
-    if (counter < 5)
+    if (i < catFire.length-1)
     {
-      pos.x = pos.x + speed;
-      counter++;
-    } else if (counter == 5)
+      pos.x = pos.x + speed/2;
+      i++;
+    } else  if (i == catFire.length-1)
     {
-      counter = 0;
       objectsArray.remove(this);
-    }
+    
+    } 
   }
 }

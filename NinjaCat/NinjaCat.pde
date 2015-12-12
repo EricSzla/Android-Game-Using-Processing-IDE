@@ -18,9 +18,13 @@ Levels level1;
 
 int levels = 0;
 int x, y = 0;
-
+int frames = 4;
+int thisFrame = 0;
+PImage[] catWalk;
+PImage[] catFire;
 
 PImage[] img;
+
 PImage ground;
 PImage obst;
 PImage fire;
@@ -43,7 +47,10 @@ void setup()
   orientation(LANDSCAPE);
   frameRate(60);
   smooth();
+
   img = new PImage[3];
+  catWalk = new PImage[4];
+  catFire = new PImage[10];
 
   x = width - width/10;
   y = height - width/10;
@@ -107,14 +114,28 @@ void loadData()
     img[i].resize(width, height);
   }
 
+  // Load images for cat walk
+  for (int i=0; i < catWalk.length; i++)
+  {
+    catWalk[i] = loadImage("Cat/walk/" + (i+1) + ".png"); 
+    catWalk[i].resize(width/5, height/3);
+  }
+
+  //Load images for cat fire
+  for (int i = 0; i < catFire.length; i++)
+  {
+    catFire[i] = loadImage("Cat/fire/" + i + ".png");
+    catFire[i].resize(width/4, height/4);
+  }
+
   // Load images
   ground = loadImage("levels/ground.png");
   ground.resize(width, height/2);
   obst = loadImage("levels/tower.png");
   obst.resize(width/10, height/10);
-  fire = loadImage("Cat/fire.gif");
+  //fire = loadImage("Cat/fire.gif");
   fire2 = loadImage("Cat/fire.gif");
-  fire.resize(width/4, height/4);
+  //fire.resize(width/4, height/4);
 }
 
 void drawMenu()
@@ -133,8 +154,6 @@ void drawMenu()
   text("Keyboard", (width/6)*3, height -height/20);
   text("Exit", (width/6)*5, height-height/20);
 }
-
-int i = 1;
 
 void onKetaiListSelection(KetaiList list)
 {
@@ -160,7 +179,7 @@ void drawBg()
   pushMatrix();
 
   tint(255, 126);
-  image(fire, x, y);
+  image(fire2, x, y);
 
   popMatrix();
 }
