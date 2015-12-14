@@ -3,7 +3,7 @@ abstract class Levels
   PImage img;
   PImage obstacle;
   PImage platform;
-  float x,y;
+  float x, y;
   float x2;
 
   Levels(PImage image, PImage obst, PImage plat)
@@ -13,6 +13,7 @@ abstract class Levels
     this.platform = plat;
     this.x = width/2;
     this.y = height;
+    
   }
 
   abstract void drawlevel();

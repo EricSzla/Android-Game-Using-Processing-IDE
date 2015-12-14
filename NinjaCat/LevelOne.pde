@@ -14,9 +14,12 @@ class LevelOne extends Levels
     image(img, width/2, height/2);
     image(platform, x + x2, y);
     image(platform, (x * 3.5) + x2, y);
+
+    
   }
 
   void updatelevel()
   {
+    
   }
 }

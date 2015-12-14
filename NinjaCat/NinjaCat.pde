@@ -133,9 +133,6 @@ void loadData()
   ground.resize(width, height/2);
   obst = loadImage("levels/tower.png");
   obst.resize(width/10, height/10);
-  //fire = loadImage("Cat/fire.gif");
-  fire2 = loadImage("Cat/fire.gif");
-  //fire.resize(width/4, height/4);
 }
 
 void drawMenu()
@@ -177,9 +174,7 @@ void onKetaiListSelection(KetaiList list)
 void drawBg()
 {
   pushMatrix();
-
-  tint(255, 126);
-  image(fire2, x, y);
-
+  
+  
   popMatrix();
 }

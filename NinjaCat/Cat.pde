@@ -1,21 +1,19 @@
 class Cat extends BaseClass
 {
-  Boolean goup;
   PImage cat;
   PImage lives;
-  int livesLeft;
   int ammoLeft;
   int i;
+  boolean respawn;
 
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
     this.lives = loadImage("Cat/lives.png");
     this.lives.resize(width/15, height/15);
-    this.livesLeft = 3;
     this.ammoLeft = 3;
     this.i = 0;
-    this.goup = false;
+    this.respawn = false;
   }
 
   void render()
@@ -23,8 +21,19 @@ class Cat extends BaseClass
     fill(0);
     rect(width- width/10, height - height/10, width/10, width/10);
 
+
     pushMatrix();
-    
+
+    if (respawn == true && livesLeft > 0)
+    {
+      text("Lives left: " + livesLeft, width/2, height/2);
+      pos.x = width/2-width/5;
+      pos.y = height - (height/3);
+      level1.x = width/2;
+      level1.x2 = 0;
+      respawn = !respawn;
+    }
+
     // Draw Cat
     image(catWalk[i], pos.x, pos.y);
 
@@ -41,6 +50,24 @@ class Cat extends BaseClass
 
   void update()
   {
+
+    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/3)))
+    {
+      godown = true;
+      goup = false;
+    }
+
+    if (godown)
+    {
+      pos.y = pos.y + height/20;
+      if (pos.y >= height)
+      {
+        godown = false;
+        livesLeft = livesLeft - 1;
+        respawn = true;
+      }
+    }
+
     if (goup == true)
     {
       pos.y = pos.y - speed;
@@ -61,8 +88,8 @@ class Cat extends BaseClass
     {
       if (mouseX > pos.x)
       {
-        pos.x = pos.x + speed/2;
-        level1.x2 = level1.x2 - speed*2;
+        pos.x = pos.x + (speed/2);
+        level1.x2 = level1.x2 - (speed*2);
         if (i < 3)
         {
           i++;

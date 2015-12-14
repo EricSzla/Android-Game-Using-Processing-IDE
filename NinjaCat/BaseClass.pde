@@ -6,8 +6,10 @@ abstract class BaseClass
   float speed = height/20;
   PVector pos;
   PVector right;
-  PImage[] walk = new PImage[3];;
-
+  PImage[] walk = new PImage[3];
+  int livesLeft;
+  boolean godown;
+  Boolean goup;
 
   BaseClass()
   {
@@ -19,14 +21,11 @@ abstract class BaseClass
     this.x = x;
     this.y = y;
     this.y2 = y2;
-
-    /*this.walk = new PImage[3];
-    this.walk[0] = loadImage("Cat/walk/2.png"); 
-    this.walk[1] = loadImage("Cat/walk/3.png"); 
-    this.walk[2] = loadImage("Cat/walk/4.png");*/
-
-   
-
+    this.livesLeft = 3;
+    this.godown = false;
+    this.goup = false;
+    this.speed = height/50;
+    
     pos = new PVector(x, y);
     right = new PVector(x, y);
   }
