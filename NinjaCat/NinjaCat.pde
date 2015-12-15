@@ -12,51 +12,38 @@ import ketai.sensors.*;
 import ketai.ui.*;
 
 KetaiList menuList;
-
 BaseClass cat;
 Levels level1;
 
-int levels = 0;
-int x, y = 0;
-int frames = 4;
-int thisFrame = 0;
-PImage[] catWalk;
-PImage[] catFire;
+int levels = 0;       // Used to choose between levels
+PImage[] catWalk;     // Used to store images for cat walk animation
+PImage[] catFire;     // Used to store images for cat to shoot
+PImage[] img;         // Used to store background images
+PImage ground;        // Used to store ground image
+PImage obst;          // Used to store obstacle image
 
-PImage[] img;
-
-PImage ground;
-PImage obst;
-PImage fire;
-PImage fire2;
-
+// ArrayList objectsArray is used to store class objects
 ArrayList<BaseClass> objectsArray = new ArrayList<BaseClass>();
+// menuChoice used for KetaiList ( used with Ketai Library )
 ArrayList<String> menuChoice = new ArrayList<String>();
 
 
 void setup()
 {
-  // Full screen size
-  size(displayWidth, displayHeight);
+  size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
   textAlign(CENTER);
   imageMode(CENTER);
-
-  // Display game in Landscape view
-  orientation(LANDSCAPE);
-  frameRate(60);
+  orientation(LANDSCAPE);               // Display in LANDSCAPE mode
+  frameRate(60);                        // Change the frameRate to 60
   smooth();
 
-  img = new PImage[3];
+  img = new PImage[3];                  // Initialize PImage arrays
   catWalk = new PImage[4];
   catFire = new PImage[10];
 
-  x = width - width/10;
-  y = height - width/10;
-
-  // Call load data function
-  loadData();
+  loadData();                           // Call load data function
 
   // Initialize classes
   cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
@@ -66,43 +53,46 @@ void setup()
 
 void draw()
 {
-  if (levels == 0)
+  if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
-  } else if (levels == 1)
+  } else if (levels == 1)      // If users chooses level 1 then the game begins
   {
-    level1.updatelevel();
-    level1.drawlevel();
-    drawBg();
+    level1.updatelevel();      // Updates the level one
+    level1.drawlevel();        // Draws the level one
+    drawBg();                  // Draws controls
 
+    // For loop to manipulate the class objects
     for (int i = 0; i <= objectsArray.size()-1; i++)
     {
       BaseClass draw = objectsArray.get(i);
       draw.update();
       draw.render();
     }
-  }
-}
-
+  } // End of if(levels == 1)
+} // End of draw()
 
 void mousePressed()
 {
 
+  // If levels == 0, that means if the Menu is showed
   if (levels == 0 && mouseY > height-height/10)
   {
     if (mouseX < width/3)
     {
+      // Draws the list where user can choose levels
       menuList = new KetaiList(this, menuChoice);
     } else if (mouseX > width/3 && mouseX < (width/3)*2)
     {
+      // Turns on the keyboard
       KetaiKeyboard.toggle(this);
     }
   }
 }
 
-
 void loadData()
 {
+  // Add choices to arrayList
   menuChoice.add("Level 1");
   menuChoice.add("Level 2");
   menuChoice.add("Level 3");
@@ -128,7 +118,7 @@ void loadData()
     catFire[i].resize(width/4, height/4);
   }
 
-  // Load images
+  // Load rest of the images
   ground = loadImage("levels/ground.png");
   ground.resize(width, height/2);
   obst = loadImage("levels/tower.png");
@@ -139,23 +129,26 @@ void drawMenu()
 {
   pushStyle();
   stroke(0);
+  // image used instead of background(img) as android mode didnt allow to use background method
   image(img[0], width/2, height/2);
   fill(255);
 
+  // Draw rects for the bottom menu
   rect(0, height, width/3, -height/10);
   rect(width/3, height, width/3, -height/10);
   rect((width/3)*2, height, width/3, -height/10);
 
+  // Fill the rectangles with text
   fill(0);
   text("Menu", width/6, height-height/20);
   text("Keyboard", (width/6)*3, height -height/20);
   text("Exit", (width/6)*5, height-height/20);
 }
-
+// Start of ketaiList
 void onKetaiListSelection(KetaiList list)
 {
   String levelChoice = list.getSelection();
-
+  // If statements to change levels
   if (levelChoice == "Level 1")
   {
     levels = 1;
@@ -170,11 +163,11 @@ void onKetaiListSelection(KetaiList list)
     levels = 0;
   }
 }
-
+// drawBg() used to draw the controls
 void drawBg()
 {
   pushMatrix();
-  
-  
+  // ....
+  // To be done ....
   popMatrix();
 }

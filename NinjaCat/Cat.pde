@@ -19,23 +19,34 @@ class Cat extends BaseClass
   void render()
   {
     fill(0);
+    // rectange in right hand corner for shooting
     rect(width- width/10, height - height/10, width/10, width/10);
 
 
     pushMatrix();
 
+    // Checking if cat lost life and needs to respawn, can only respawn if there are lives left
     if (respawn == true && livesLeft > 0)
     {
-      text("Lives left: " + livesLeft, width/2, height/2);
+      // Reset cat position and the platform position
       pos.x = width/2-width/5;
       pos.y = height - (height/3);
       level1.x = width/2;
       level1.x2 = 0;
       respawn = !respawn;
+    } else if (livesLeft == 0)
+    {
+      fill(0);
+      rect(0, 0, width, height);
+      fill(255);
+      text("GAME OVER", width/2, height/2);
     }
 
     // Draw Cat
-    image(catWalk[i], pos.x, pos.y);
+    if (livesLeft != 0)
+    {
+      image(catWalk[i], pos.x, pos.y);
+    }
 
     // Draw lives
     imageMode(CORNER);
@@ -50,13 +61,15 @@ class Cat extends BaseClass
 
   void update()
   {
-
+    // If statement to check if cat is in the hole
     if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/3)))
     {
+      // If it is change godown to true
       godown = true;
       goup = false;
     }
 
+    // If godown is true then make the falling down into hole animation
     if (godown)
     {
       pos.y = pos.y + height/20;
@@ -68,15 +81,18 @@ class Cat extends BaseClass
       }
     }
 
+    // Code for jumping up, if goup is equal to true then dicrement the cat's pos.y 
     if (goup == true)
     {
       pos.y = pos.y - speed;
+      // If reaches height-(height/2) then change the goup to false
       if (pos.y <= height - (height/2))
       {
         goup = !goup;
       }
-    } else if (goup == false)
+    } else if (goup == false) 
     {
+      // Start falling back down to the platform 
       if (pos.y < height - (height/3))
       {
         pos.y = pos.y + speed;
@@ -86,10 +102,14 @@ class Cat extends BaseClass
 
     if (mousePressed)
     {
+      // If statement to check if user clicked on the right hand side of the cat
+      // If so then inrement cat's position x
+      // And decrement the platform x position
       if (mouseX > pos.x)
       {
         pos.x = pos.x + (speed/2);
         level1.x2 = level1.x2 - (speed*2);
+        // variable 'i' is used to draw appropriate image in render() method
         if (i < 3)
         {
           i++;
@@ -110,6 +130,8 @@ class Cat extends BaseClass
         }
       }
 
+      // If statement to check if user clicked 'above' the cat if so boolean goup is changed
+      // which will lead to cat jumping
       if (mouseY < height - (height/3))
       {
         if (pos.y == height - (height/3) && goup == false)
@@ -118,8 +140,9 @@ class Cat extends BaseClass
         }
       }
 
-      // Shoot
-
+      // If statement for shooting
+      // If user clicks in right bottom corner, new Fire object is made and added to
+      // the objectsArray
       if (mouseX > width- width/10 && mouseX < width)
       {
         if (mouseY > height-height/10 && mouseY < height)
@@ -131,6 +154,6 @@ class Cat extends BaseClass
           objectsArray.add(fire);
         }
       }
-    }
-  }
+    } // end of if mouse pressed
+  } // end of update
 } // end class

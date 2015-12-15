@@ -7,6 +7,7 @@ class LevelOne extends Levels
 
   void drawlevel()
   {
+    // This method draws the platform
     if (x* 3.5 + x2 <= width-width/2)
     {
       x2 = 0;

@@ -12,6 +12,7 @@ class Fire extends BaseClass
 
   void render()
   {
+    // Draw the fire
     pushMatrix();
     image(catFire[i], pos.x, pos.y);
     popMatrix();
@@ -19,12 +20,15 @@ class Fire extends BaseClass
 
   void update()
   {
+    // Increment the fires X position and increment variable 'i' which will
+    // change the image in render() method
     if (i < catFire.length-1)
     {
       pos.x = pos.x + speed/2;
       i++;
     } else  if (i == catFire.length-1)
     {
+      // Removes the fire
       objectsArray.remove(this);
     
     } 
