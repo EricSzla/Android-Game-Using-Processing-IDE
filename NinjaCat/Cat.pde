@@ -3,7 +3,7 @@ class Cat extends BaseClass
   PImage lives;
   int ammoLeft;
   int i;
-  boolean respawn;
+
 
   Cat(float x, float y, float y2)
   {
@@ -12,7 +12,6 @@ class Cat extends BaseClass
     this.lives.resize(width/15, height/15);
     this.ammoLeft = 3;
     this.i = 0;
-    this.respawn = false;
   }
 
   Cat()
@@ -26,17 +25,15 @@ class Cat extends BaseClass
     // rectange in right hand corner for shooting
     rect(width- width/10, height - height/10, width/10, width/10);
 
+    // Display enemies killed
+    text("Enemies killed: " + enemiesKilled, width - width/10, height/25);
 
     pushMatrix();
 
     // Checking if cat lost life and needs to respawn, can only respawn if there are lives left
     if (respawn == true && livesLeft > 0)
     {
-      // Reset cat position and the platform position
-      pos.x = width/2-width/5;
-      pos.y = height - (height/3);
-      level1.x = width/2;
-      level1.x2 = 0;
+      lostLive();
       respawn = !respawn;
     } else if (livesLeft == 0)
     {
@@ -58,6 +55,8 @@ class Cat extends BaseClass
     {
       image(lives, width/15 * i+1, height/25);
     }
+
+
 
     popMatrix();
     imageMode(CENTER);
@@ -160,4 +159,14 @@ class Cat extends BaseClass
       }
     } // end of if mouse pressed
   } // end of update
+
+  void lostLive()
+  {
+    // Reset cat position, enemy position and the platform position
+    pos.x = width/2-width/5;
+    pos.y = height - (height/3);
+    level1.x = width/2;
+    level1.x2 = 0;
+    enemy.pos.x = width + width/2;
+  }
 } // end class

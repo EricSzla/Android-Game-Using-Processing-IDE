@@ -10,6 +10,8 @@ abstract class BaseClass
   int livesLeft;
   boolean godown;
   Boolean goup;
+  boolean respawn;
+  int enemiesKilled;
 
   BaseClass()
   {
@@ -25,11 +27,14 @@ abstract class BaseClass
     this.godown = false;
     this.goup = false;
     this.speed = height/50;
-    
+    this.respawn = false;
+    this.enemiesKilled = 0;
+
     pos = new PVector(x, y);
     right = new PVector(x, y);
   }
 
   abstract void render();
   abstract void update();
+  abstract void lostLive();
 }

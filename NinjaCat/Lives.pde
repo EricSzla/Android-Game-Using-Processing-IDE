@@ -23,4 +23,8 @@ class Lives extends BaseClass implements PowerUp
   {
     // image(lives,x,y) when enemy dies
   }
+
+  void lostLive()
+  {
+  }
 }

@@ -2,19 +2,19 @@ class Enemy extends BaseClass
 {
   /* TO DO */
   // Change enemy image
-  // Regulate the fire rate
-  // Either give super powers e.g. fly or regulate jump
-  // Block going outside the screen
-  // Make it die ! 
+  // Change fire image
 
 
   int i;
+  boolean jump;
+
   Enemy()
   {
     super(width, height - (height/3), height - (height/3));
     this.i = 0;
+    this.jump = true;
+    this.livesLeft = 5;
   }
-
 
   void render()
   {
@@ -22,6 +22,11 @@ class Enemy extends BaseClass
     // Draw Enemy
     if (cat.livesLeft != 0)
     {
+      if (pos.x < -width/2 || respawn)
+      {
+        pos.x = width;
+        respawn = !respawn;
+      }
       image(catWalk[i], pos.x, pos.y);
     }
     popMatrix();
@@ -53,42 +58,37 @@ class Enemy extends BaseClass
         pos.y = pos.y + speed;
       }
     }
-
-    if (cat.pos.x >= pos.x - width/3)
+    // Keep moving left by dicrementing pos.x
+    pos.x = pos.x - speed;
+    if (i > 0)
     {
-      pos.x = pos.x + (speed/2);
-      // variable 'i' is used to draw appropriate image in render() method
-      if (i < 3)
-      {
-        i++;
-      } else
-      {
-        i = 0;
-      }
-    } else if (cat.pos.x < pos.x - width/3)
+      i--;
+    } else
     {
-
-      pos.x = pos.x - speed;
-      if (i > 0)
-      {
-        i--;
-      } else
-      {
-        i = 2;
-      }
+      i = 2;
     }
 
     // If statement for shooting
     // If user is in range, new Fire object is made and added to
     // the objectsArray
-    
-    if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
+
+    if (frameCount >= 15 && cat.pos.x < pos.x)
     {
-      Fire fire = new Fire("left");
-      fire.pos.x = pos.x;
-      fire.pos.y = pos.y;
-      fire.pos.x = fire.pos.x + speed;
-      objectsArray.add(fire);
+
+      if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
+      {
+        Fire fire = new Fire("left");
+        fire.pos.x = pos.x;
+        fire.pos.y = pos.y;
+        fire.pos.x = fire.pos.x + speed;
+        objectsArray.add(fire);
+      }
+      frameCount = 0;
     }
   } // end of update()
+
+  void lostLive()
+  {
+    respawn = !respawn;
+  }
 } // End of class
