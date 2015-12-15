@@ -2,12 +2,14 @@ class Fire extends BaseClass
 {
   int counter;
   int i;
+  String direction;
 
-  Fire()
+  Fire(String direction)
   {
     speed = height/10;
     this.counter = 0;
     this.i = 0;
+    this.direction = direction;
   }
 
   void render()
@@ -24,13 +26,18 @@ class Fire extends BaseClass
     // change the image in render() method
     if (i < catFire.length-1)
     {
-      pos.x = pos.x + speed/2;
+      if (direction == "right")
+      {
+        pos.x = pos.x + speed/2;
+      } else if (direction == "left")
+      {
+        pos.x = pos.x - speed/2;
+      }
       i++;
     } else  if (i == catFire.length-1)
     {
       // Removes the fire
       objectsArray.remove(this);
-    
-    } 
+    }
   }
 }

@@ -13,6 +13,7 @@ import ketai.ui.*;
 
 KetaiList menuList;
 BaseClass cat;
+BaseClass enemy;
 Levels level1;
 
 int levels = 0;       // Used to choose between levels
@@ -48,6 +49,9 @@ void setup()
   // Initialize classes
   cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
   objectsArray.add(cat);
+  enemy = new Enemy();
+  objectsArray.add(enemy);
+  
   level1 = new LevelOne(img[0], obst, ground);
 }
 

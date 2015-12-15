@@ -13,7 +13,6 @@ abstract class Levels
     this.platform = plat;
     this.x = width/2;
     this.y = height;
-    
   }
 
   abstract void drawlevel();

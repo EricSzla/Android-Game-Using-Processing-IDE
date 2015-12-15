@@ -1,6 +1,5 @@
 class Cat extends BaseClass
 {
-  PImage cat;
   PImage lives;
   int ammoLeft;
   int i;
@@ -14,6 +13,11 @@ class Cat extends BaseClass
     this.ammoLeft = 3;
     this.i = 0;
     this.respawn = false;
+  }
+
+  Cat()
+  {
+    this(width/2-width/5, height - (height/3), height - (height/3));
   }
 
   void render()
@@ -67,7 +71,7 @@ class Cat extends BaseClass
       // If it is change godown to true
       godown = true;
       goup = false;
-    }
+    } 
 
     // If godown is true then make the falling down into hole animation
     if (godown)
@@ -145,9 +149,9 @@ class Cat extends BaseClass
       // the objectsArray
       if (mouseX > width- width/10 && mouseX < width)
       {
-        if (mouseY > height-height/10 && mouseY < height)
+        if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
         {
-          Fire fire = new Fire();
+          Fire fire = new Fire("right");
           fire.pos.x = pos.x;
           fire.pos.y = pos.y;
           fire.pos.x = fire.pos.x + speed;
