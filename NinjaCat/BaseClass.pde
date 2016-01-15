@@ -12,11 +12,8 @@ abstract class BaseClass
   Boolean goup;
   boolean respawn;
   int enemiesKilled;
-<<<<<<< HEAD
   int enemiesLeft;
   boolean win = false;
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 
   BaseClass()
   {
@@ -34,11 +31,8 @@ abstract class BaseClass
     this.speed = height/50;
     this.respawn = false;
     this.enemiesKilled = 0;
-<<<<<<< HEAD
     this.enemiesLeft = 5;
     this.win = false;
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 
     pos = new PVector(x, y);
     right = new PVector(x, y);

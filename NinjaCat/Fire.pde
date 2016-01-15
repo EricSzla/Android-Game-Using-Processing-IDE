@@ -16,7 +16,6 @@ class Fire extends BaseClass
   {
     // Draw the fire
     pushMatrix();
-<<<<<<< HEAD
     if (direction == "right")
     {
       image(catFire[i], pos.x, pos.y);
@@ -24,9 +23,6 @@ class Fire extends BaseClass
     {
       image(enemyFire[i], pos.x, pos.y);
     }
-=======
-    image(catFire[i], pos.x, pos.y);
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     popMatrix();
   }
 
@@ -41,7 +37,6 @@ class Fire extends BaseClass
         pos.x = pos.x + speed/2;
         if (pos.x >= enemy.pos.x && enemy.pos.x >= cat.pos.x)    // Removes the fire if hits the enemy
         {
-<<<<<<< HEAD
           drawLive = ! drawLive;  // Draw live after enemy dies
           lx = enemy.pos.x;
           ly = enemy.pos.y;
@@ -56,11 +51,6 @@ class Fire extends BaseClass
           {
             cat.win = true;
           }
-=======
-          enemy.livesLeft --;
-          enemy.lostLive();
-          cat.enemiesKilled ++;
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
           lostLive();
         }
       } else if (direction == "left")

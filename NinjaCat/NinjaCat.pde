@@ -4,7 +4,6 @@
 
 /* Ketai Library is an android library
  * for working with sensors, cameras
-<<<<<<< HEAD
  * multi-touch, UI , networking, Bluetooth, 
  * WiFi Direct, Near Field Communication etc.
  */
@@ -16,12 +15,6 @@
 // if enough time different levels and new enemies ? 
 // powerUps 
 
-=======
- * multi-touch, networking, Bluetooth, 
- * WiFi Direct, Near Field Communication etc.
- */
-
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 import ketai.sensors.*;
 import ketai.ui.*;
 
@@ -30,7 +23,6 @@ BaseClass cat;
 BaseClass enemy;
 Levels level1;
 
-<<<<<<< HEAD
 float lx, ly;
 
 int levels = 0;           // Used to choose between levels
@@ -43,14 +35,6 @@ PImage[] img;             // Used to store background images
 PImage ground;            // Used to store ground image
 PImage obst;              // Used to store obstacle image
 PImage lives;             // Used to store lives image
-=======
-int levels = 0;       // Used to choose between levels
-PImage[] catWalk;     // Used to store images for cat walk animation
-PImage[] catFire;     // Used to store images for cat to shoot
-PImage[] img;         // Used to store background images
-PImage ground;        // Used to store ground image
-PImage obst;          // Used to store obstacle image
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 
 // ArrayList objectsArray is used to store class objects
 ArrayList<BaseClass> objectsArray = new ArrayList<BaseClass>();
@@ -72,11 +56,8 @@ void setup()
   img = new PImage[3];                  // Initialize PImage arrays
   catWalk = new PImage[4];
   catFire = new PImage[10];
-<<<<<<< HEAD
   enemyWalk = new PImage[4];
   enemyFire = new PImage[10];
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 
   loadData();                           // Call load data function
 
@@ -85,11 +66,7 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   level1 = new LevelOne(img[0], obst, ground);
 }
 
@@ -108,7 +85,6 @@ void draw()
     for (int i = 0; i <= objectsArray.size()-1; i++)
     {
       BaseClass draw = objectsArray.get(i);
-<<<<<<< HEAD
       if (draw.win)
       {
         drawLive = false; // Hide live if drawn ( after enemy is killed ) 
@@ -151,10 +127,6 @@ void draw()
           life.render();
         }
       }
-=======
-      draw.update();
-      draw.render();
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     }
   } // End of if(levels == 1)
 } // End of draw()
@@ -191,21 +163,14 @@ void loadData()
     img[i].resize(width, height);
   }
 
-<<<<<<< HEAD
   // Load images for cat walk && enemy walk
-=======
-  // Load images for cat walk
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   for (int i=0; i < catWalk.length; i++)
   {
     catWalk[i] = loadImage("Cat/walk/" + (i+1) + ".png"); 
     catWalk[i].resize(width/5, height/3);
-<<<<<<< HEAD
 
     enemyWalk[i] = loadImage("Cat/enemyWalk/" + (i+1) + ".png");
     enemyWalk[i].resize(width/5, height/3);
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   }
 
   //Load images for cat fire
@@ -213,12 +178,9 @@ void loadData()
   {
     catFire[i] = loadImage("Cat/fire/" + i + ".png");
     catFire[i].resize(width/4, height/4);
-<<<<<<< HEAD
 
     enemyFire[i] = loadImage("Cat/enemyFire/" + i + ".png");
     enemyFire[i].resize(width/3, height/4);
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   }
 
   // Load rest of the images
@@ -226,11 +188,8 @@ void loadData()
   ground.resize(width, height/2);
   obst = loadImage("levels/tower.png");
   obst.resize(width/10, height/10);
-<<<<<<< HEAD
   lives = loadImage("Cat/lives.png");
   lives.resize(width/15, height/15);
-=======
->>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
 }
 
 void drawMenu()
