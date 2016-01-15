@@ -1,5 +1,9 @@
 class Cat extends BaseClass
 {
+<<<<<<< HEAD
+=======
+  PImage lives;
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   int ammoLeft;
   int i;
 
@@ -7,6 +11,11 @@ class Cat extends BaseClass
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
+<<<<<<< HEAD
+=======
+    this.lives = loadImage("Cat/lives.png");
+    this.lives.resize(width/15, height/15);
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     this.ammoLeft = 3;
     this.i = 0;
   }
@@ -38,12 +47,19 @@ class Cat extends BaseClass
       rect(0, 0, width, height);
       fill(255);
       text("GAME OVER", width/2, height/2);
+<<<<<<< HEAD
       text("Enemies killed: " + enemiesKilled, width/2, height/2+height/20);
       text("Enemies left  : " + enemiesLeft, width/2, height/2+height/10);
     }
 
     // Draw Cat
     if (livesLeft != 0 && !win)
+=======
+    }
+
+    // Draw Cat
+    if (livesLeft != 0)
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     {
       image(catWalk[i], pos.x, pos.y);
     }
@@ -55,6 +71,11 @@ class Cat extends BaseClass
       image(lives, width/15 * i+1, height/25);
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     popMatrix();
     imageMode(CENTER);
   }
@@ -109,7 +130,10 @@ class Cat extends BaseClass
       {
         pos.x = pos.x + (speed/2);
         level1.x2 = level1.x2 - (speed*2);
+<<<<<<< HEAD
         lx = lx - (speed*2);
+=======
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
         // variable 'i' is used to draw appropriate image in render() method
         if (i < 3)
         {
@@ -148,6 +172,7 @@ class Cat extends BaseClass
       {
         if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
         {
+<<<<<<< HEAD
           if (frameCount >= 7)
           {
             Fire fire = new Fire("right");
@@ -157,6 +182,13 @@ class Cat extends BaseClass
             objectsArray.add(fire);
             frameCount = 0;
           }
+=======
+          Fire fire = new Fire("right");
+          fire.pos.x = pos.x;
+          fire.pos.y = pos.y;
+          fire.pos.x = fire.pos.x + speed;
+          objectsArray.add(fire);
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
         }
       }
     } // end of if mouse pressed

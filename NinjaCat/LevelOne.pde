@@ -3,7 +3,10 @@ class LevelOne extends Levels
   LevelOne(PImage image, PImage obstacle, PImage plat)
   {
     super(image, obstacle, plat);
+<<<<<<< HEAD
     cat.enemiesLeft = 3;
+=======
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   }
 
   void drawlevel()

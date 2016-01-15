@@ -1,5 +1,13 @@
 class Enemy extends BaseClass
 {
+<<<<<<< HEAD
+=======
+  /* TO DO */
+  // Change enemy image
+  // Change fire image
+
+
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
   int i;
   boolean jump;
 
@@ -15,15 +23,23 @@ class Enemy extends BaseClass
   {
     pushMatrix();
     // Draw Enemy
+<<<<<<< HEAD
     if (cat.livesLeft != 0 && !cat.win)
+=======
+    if (cat.livesLeft != 0)
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     {
       if (pos.x < -width/2 || respawn)
       {
         pos.x = width;
         respawn = !respawn;
       }
+<<<<<<< HEAD
 
       image(enemyWalk[i], pos.x, pos.y);
+=======
+      image(catWalk[i], pos.x, pos.y);
+>>>>>>> ee16b5e3dfda99ef33a750dfacb76a37c713b5f3
     }
     popMatrix();
   }
