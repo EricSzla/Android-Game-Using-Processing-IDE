@@ -26,7 +26,16 @@ Levels level1;
 float lx, ly;
 
 int levels = 0;           // Used to choose between levels
+int stage = 0;            // Used to diffrenciate between talk stages in menu
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
+boolean keyboardToggled = false;
+
+String name;
+String localtion;
+String answer;
+
+PImage menuCat;
+PImage menuTalk;
 PImage[] catWalk;         // Used to store images for cat walk animation
 PImage[] enemyWalk;       // Used to store images for enemy walk animation
 PImage[] enemyFire;       // Used to store images for enemy fire
@@ -145,6 +154,41 @@ void mousePressed()
     {
       // Turns on the keyboard
       KetaiKeyboard.toggle(this);
+      keyboardToggled = true;
+    }
+  }
+}
+
+void keyPressed()
+{
+  if (keyboardToggled)
+  {
+    if (stage == 0)
+    {
+      if (int(key) == 127)
+      {
+        name.substring(0, name.length()-1);
+      } else
+      {
+        if (name == null)
+        {
+          name = "" + key;
+        } else 
+        {
+          name = name + key;
+        }
+      }
+      println(name);
+      println(int(name.charAt(1)));
+    }
+    if (int(key) == 10)  // If key pressed == ENTER in ASCII value
+    {
+      if (stage == 0 && name != null)
+      {
+        stage = 1;
+      }
+      KetaiKeyboard.toggle(this); // Hide the keyboard
+      keyboardToggled = false;
     }
   }
 }
@@ -160,27 +204,27 @@ void loadData()
   for (int i = 0; i < img.length; i++)
   {
     img[i] = loadImage("levels/" + (i+1) + ".jpg");
-    img[i].resize(width, height);
+    img[i].resize(displayWidth, displayHeight);
   }
 
   // Load images for cat walk && enemy walk
   for (int i=0; i < catWalk.length; i++)
   {
     catWalk[i] = loadImage("Cat/walk/" + (i+1) + ".png"); 
-    catWalk[i].resize(width/5, height/3);
+    catWalk[i].resize(displayWidth/5, displayHeight/3);
 
     enemyWalk[i] = loadImage("Cat/enemyWalk/" + (i+1) + ".png");
-    enemyWalk[i].resize(width/5, height/3);
+    enemyWalk[i].resize(displayWidth/5, displayHeight/3);
   }
 
   //Load images for cat fire
   for (int i = 0; i < catFire.length; i++)
   {
     catFire[i] = loadImage("Cat/fire/" + i + ".png");
-    catFire[i].resize(width/4, height/4);
+    catFire[i].resize(displayWidth/4, displayHeight/4);
 
     enemyFire[i] = loadImage("Cat/enemyFire/" + i + ".png");
-    enemyFire[i].resize(width/3, height/4);
+    enemyFire[i].resize(displayWidth/3, displayHeight/4);
   }
 
   // Load rest of the images
@@ -190,6 +234,10 @@ void loadData()
   obst.resize(width/10, height/10);
   lives = loadImage("Cat/lives.png");
   lives.resize(width/15, height/15);
+  menuCat = loadImage("Menu/cat.png");
+  menuCat.resize(width/3, height);
+  menuTalk = loadImage("Menu/talk.png");
+  menuTalk.resize(width/3, height/2);
 }
 
 void drawMenu()
@@ -197,7 +245,9 @@ void drawMenu()
   pushStyle();
   stroke(0);
   // image used instead of background(img) as android mode didnt allow to use background method
-  image(img[0], width/2, height/2);
+  image(img[0], displayWidth/2, displayHeight/2);
+  image(menuCat, displayWidth-displayWidth/3, displayHeight/2);
+  image(menuTalk, displayWidth/3, displayHeight/3);
   fill(255);
 
   // Draw rects for the bottom menu
@@ -210,6 +260,14 @@ void drawMenu()
   text("Menu", width/6, height-height/20);
   text("Keyboard", (width/6)*3, height -height/20);
   text("Exit", (width/6)*5, height-height/20);
+  popStyle();
+
+  fill(0);
+  if (stage == 0)
+  {
+    text("Hello, I'm Ninja Cat !", displayWidth/3, displayHeight/4);
+    text("What is your name ?", displayWidth/3, displayHeight/3);
+  }
 }
 // Start of ketaiList
 void onKetaiListSelection(KetaiList list)
