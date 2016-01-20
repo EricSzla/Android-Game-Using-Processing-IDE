@@ -15,10 +15,11 @@
 // if enough time different levels and new enemies ? 
 // powerUps 
 
-import ketai.sensors.*;
 import ketai.ui.*;
 
 KetaiList menuList;
+KetaiVibrate vibration;
+
 BaseClass cat;
 BaseClass enemy;
 Levels level1;
@@ -52,7 +53,7 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 
 
 void setup()
-{
+{  
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
@@ -61,6 +62,8 @@ void setup()
   orientation(LANDSCAPE);               // Display in LANDSCAPE mode
   frameRate(60);                        // Change the frameRate to 60
   smooth();
+  
+  vibration = new KetaiVibrate(this);
 
   img = new PImage[3];                  // Initialize PImage arrays
   catWalk = new PImage[4];
@@ -75,12 +78,13 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-
   level1 = new LevelOne(img[0], obst, ground);
+  
 }
 
 void draw()
 {
+ 
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
@@ -148,11 +152,13 @@ void mousePressed()
   {
     if (mouseX < width/3)
     {
+      vibration.vibrate(200);
       // Draws the list where user can choose levels
       menuList = new KetaiList(this, menuChoice);
     } else if (mouseX > width/3 && mouseX < (width/3)*2)
     {
       // Turns on the keyboard
+      vibration.vibrate(200);
       KetaiKeyboard.toggle(this);
       keyboardToggled = true;
     }
@@ -165,17 +171,18 @@ void keyPressed()
   {
     if (stage == 0)
     {
-
-
       if (name == null)
       {
         name = "" + key;
+        vibration.vibrate(200);
       } else 
       {
         name = name + key;
+        vibration.vibrate(200);
       }
 
       println(name);
+      
     }
     if (int(key) == 10)  // If key pressed == ENTER in ASCII value
     {

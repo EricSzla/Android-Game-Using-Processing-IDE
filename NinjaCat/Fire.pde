@@ -58,6 +58,7 @@ class Fire extends BaseClass
         pos.x = pos.x - speed/2;
         if (pos.x <= cat.pos.x)      // Removes the fire if hits the cat
         {
+          vibration.vibrate(200);
           cat.livesLeft --;
           cat.respawn = true;
           lostLive();
