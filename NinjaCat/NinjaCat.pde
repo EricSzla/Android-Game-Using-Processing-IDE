@@ -165,21 +165,17 @@ void keyPressed()
   {
     if (stage == 0)
     {
-      if (int(key) == 127)
+
+
+      if (name == null)
       {
-        name.substring(0, name.length()-1);
-      } else
+        name = "" + key;
+      } else 
       {
-        if (name == null)
-        {
-          name = "" + key;
-        } else 
-        {
-          name = name + key;
-        }
+        name = name + key;
       }
+
       println(name);
-      println(int(name.charAt(1)));
     }
     if (int(key) == 10)  // If key pressed == ENTER in ASCII value
     {
@@ -265,8 +261,12 @@ void drawMenu()
   fill(0);
   if (stage == 0)
   {
-    text("Hello, I'm Ninja Cat !", displayWidth/3, displayHeight/4);
-    text("What is your name ?", displayWidth/3, displayHeight/3);
+    text("I'm the ninja cat !", displayWidth/3, displayHeight/4);
+    text("What's your name?", displayWidth/3, displayHeight/3);
+  } else if (stage == 1)
+  {
+    text("Hello " + name, displayWidth/3, displayHeight/4);
+    text("Help me on my jurney!", displayWidth/3, displayHeight/3);
   }
 }
 // Start of ketaiList
