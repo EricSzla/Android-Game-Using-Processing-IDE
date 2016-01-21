@@ -1,7 +1,8 @@
 abstract class BaseClass
 {
-  float x;
-  float y;
+  float x,y;
+  float testx,testy;
+  
   float y2;
   float speed = height/20;
   PVector pos;

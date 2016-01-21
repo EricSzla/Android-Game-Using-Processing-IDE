@@ -10,8 +10,6 @@
 
 /* TO DO */
 // drawBg() function ? 
-// ketai sensors?
-// menu talk
 // if enough time different levels and new enemies ? 
 // powerUps 
 
@@ -30,6 +28,7 @@ int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
 boolean keyboardToggled = false;
+boolean add = true;
 
 String name;
 String localtion;
@@ -62,7 +61,7 @@ void setup()
   orientation(LANDSCAPE);               // Display in LANDSCAPE mode
   frameRate(60);                        // Change the frameRate to 60
   smooth();
-  
+
   vibration = new KetaiVibrate(this);
 
   img = new PImage[3];                  // Initialize PImage arrays
@@ -79,12 +78,11 @@ void setup()
   enemy = new Enemy();
   objectsArray.add(enemy);
   level1 = new LevelOne(img[0], obst, ground);
-  
 }
 
 void draw()
 {
- 
+
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
@@ -137,7 +135,13 @@ void draw()
         if (drawLive)
         {
           Lives life = new Lives(lx, ly);
+          if (add)
+          {
+            objectsArray.add(life);
+            add = false;
+          }
           life.render();
+          checkCollisions();
         }
       }
     }
@@ -182,7 +186,6 @@ void keyPressed()
       }
 
       println(name);
-      
     }
     if (int(key) == 10)  // If key pressed == ENTER in ASCII value
     {
@@ -302,4 +305,31 @@ void drawBg()
   // ....
   // To be done ....
   popMatrix();
+}
+
+void checkCollisions()
+{
+  for (int i = objectsArray.size() - 1; i >= 0; i --)
+  {
+    BaseClass go = objectsArray.get(i);
+    if (go instanceof Cat)
+    {
+      for (int j = objectsArray.size() - 1; j >= 0; j --)
+      {
+        BaseClass other = objectsArray.get(j);
+        if (other instanceof Lives) // Check the type of an object
+        {
+          if (go.pos.x >= (other.testx - width/10) && go.pos.x <= (other.testx + width/10))
+          {
+            println("6");
+            drawLive = false;
+            add = true;
+            ((Lives) other). applyTo((Cat)go);
+            objectsArray.remove(other);
+            
+          }
+        }
+      }
+    }
+  }
 }
