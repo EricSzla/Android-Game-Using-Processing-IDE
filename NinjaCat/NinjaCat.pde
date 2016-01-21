@@ -276,7 +276,7 @@ void drawMenu()
   } else if (stage == 1)
   {
     text("Hello " + name, displayWidth/3, displayHeight/4);
-    text("Help me on my jurney!", displayWidth/3, displayHeight/3);
+    text("Help me on my journey!", displayWidth/3, displayHeight/3);
   }
 }
 // Start of ketaiList
@@ -311,22 +311,24 @@ void checkCollisions()
 {
   for (int i = objectsArray.size() - 1; i >= 0; i --)
   {
-    BaseClass go = objectsArray.get(i);
-    if (go instanceof Cat)
+    BaseClass theCat = objectsArray.get(i);
+    if (theCat instanceof Cat)
     {
       for (int j = objectsArray.size() - 1; j >= 0; j --)
       {
-        BaseClass other = objectsArray.get(j);
-        if (other instanceof Lives) // Check the type of an object
+        BaseClass life = objectsArray.get(j);
+        if (life instanceof Lives) // Check the type of an object
         {
-          if (go.pos.x >= (other.testx - width/10) && go.pos.x <= (other.testx + width/10))
+          if (theCat.pos.x >= (life.livesx - width/10) && theCat.pos.x <= (life.livesx + width/10))
           {
             println("6");
             drawLive = false;
             add = true;
-            ((Lives) other). applyTo((Cat)go);
-            objectsArray.remove(other);
-            
+            ((Lives) life). applyTo((Cat)theCat);
+            objectsArray.remove(life);
+          } else
+          {
+            continue;
           }
         }
       }

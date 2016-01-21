@@ -8,8 +8,8 @@ class Lives extends BaseClass implements PowerUp
   {
     this.lx = x;
     this.ly = y;
-    testx = lx;
-    testy = ly;
+    livesx = lx;
+    livesy = ly;
   }
 
   void applyTo(Cat cat)

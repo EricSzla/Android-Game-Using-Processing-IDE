@@ -1,7 +1,7 @@
 abstract class BaseClass
 {
   float x,y;
-  float testx,testy;
+  float livesx,livesy;
   
   float y2;
   float speed = height/20;
