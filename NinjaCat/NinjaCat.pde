@@ -134,13 +134,6 @@ void draw()
         draw.render();
         if (drawLive)
         {
-          Lives life = new Lives(lx, ly);
-          if (add)
-          {
-            objectsArray.add(life);
-            add = false;
-          }
-          life.render();
           checkCollisions();
         }
       }
@@ -319,9 +312,19 @@ void checkCollisions()
         BaseClass life = objectsArray.get(j);
         if (life instanceof Lives) // Check the type of an object
         {
-          if (theCat.pos.x >= (life.livesx - width/10) && theCat.pos.x <= (life.livesx + width/10))
+          if (mousePressed)
           {
-            println("6");
+            if (mouseX > cat.pos.x)
+            {
+              life.livesx = life.livesx - (cat.speed/2);
+            }
+          }
+          life.update();
+          life.render();
+          println(life.livesx);
+          
+          if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
+          {
             drawLive = false;
             add = true;
             ((Lives) life). applyTo((Cat)theCat);

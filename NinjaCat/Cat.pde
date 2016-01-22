@@ -109,7 +109,7 @@ class Cat extends BaseClass
       {
         pos.x = pos.x + (speed/2);
         level1.x2 = level1.x2 - (speed*2);
-        lx = lx - (speed*2);
+        livesx = livesx - (speed*2);
         // variable 'i' is used to draw appropriate image in render() method
         if (i < 3)
         {

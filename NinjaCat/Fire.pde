@@ -37,12 +37,12 @@ class Fire extends BaseClass
         pos.x = pos.x + speed/2;
         if (pos.x >= enemy.pos.x && enemy.pos.x >= cat.pos.x)    // Removes the fire if hits the enemy
         {
-          if (add == true)
-          {
-            drawLive = true;  // Draw live after enemy dies
-            lx = enemy.pos.x;
-            ly = enemy.pos.y;
-          }
+          drawLive = true;  // Draw live after enemy dies
+          lx = enemy.pos.x;
+          ly = enemy.pos.y;
+          Lives life = new Lives(lx, ly);
+          objectsArray.add(life);
+
 
           enemy.livesLeft --;
           enemy.lostLive();

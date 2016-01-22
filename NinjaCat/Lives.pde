@@ -2,14 +2,14 @@ class Lives extends BaseClass implements PowerUp
 {
   /* TO DO */
   // Make live touch the player ! 
-  float lx,ly;
-  
+  float llx, lly;
+
   Lives(float x, float y)
   {
-    this.lx = x;
-    this.ly = y;
-    livesx = lx;
-    livesy = ly;
+    this.llx = x;
+    this.lly = y;
+    livesx = llx;
+    livesy = lly;
   }
 
   void applyTo(Cat cat)
@@ -20,12 +20,14 @@ class Lives extends BaseClass implements PowerUp
   void render()
   {
     pushMatrix();
-    image(lives, lx, ly);
+    image(lives, llx, lly);
     popMatrix();
   }
 
   void update()
   {
+    llx = livesx;
+    lly = livesy;
   }
 
   void lostLive()
