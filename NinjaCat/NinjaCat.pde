@@ -312,21 +312,13 @@ void checkCollisions()
         BaseClass life = objectsArray.get(j);
         if (life instanceof Lives) // Check the type of an object
         {
-          if (mousePressed)
-          {
-            if (mouseX > cat.pos.x)
-            {
-              life.livesx = life.livesx - (cat.speed/2);
-            }
-          }
           life.update();
           life.render();
           println(life.livesx);
-          
+
           if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
           {
             drawLive = false;
-            add = true;
             ((Lives) life). applyTo((Cat)theCat);
             objectsArray.remove(life);
           } else

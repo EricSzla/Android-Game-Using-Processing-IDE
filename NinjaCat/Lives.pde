@@ -26,6 +26,14 @@ class Lives extends BaseClass implements PowerUp
 
   void update()
   {
+    if (mousePressed)
+    {
+      if (mouseX > cat.pos.x)
+      {
+        livesx = livesx - (cat.speed/2);
+      }
+    }
+
     llx = livesx;
     lly = livesy;
   }
