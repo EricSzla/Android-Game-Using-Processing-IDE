@@ -126,6 +126,7 @@ void draw()
               if (levels < 3)
               {
                 //levels++;
+                draw.lostLive();
                 draw.enemiesLeft = 3;
                 draw.enemiesKilled = 0;
                 draw.win = false;
