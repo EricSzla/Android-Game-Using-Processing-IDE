@@ -98,7 +98,17 @@ void draw()
       BaseClass draw = objectsArray.get(i);
       if (draw.win)
       {
-        drawLive = false; // Hide live if drawn ( after enemy is killed ) 
+        // Remove the life if drawn, after completing level
+        for (int j = objectsArray.size() - 1; j >= 0; j --)
+        {
+          BaseClass life = objectsArray.get(j);
+          if (life instanceof Lives) // Check the type of an object
+          {
+            drawLive = false;
+            objectsArray.remove(life);
+          }
+        }
+        
         background(255);
         fill(0);
         stroke(0);
@@ -111,19 +121,20 @@ void draw()
         {
           if (mouseX > width/4 && mouseX < width/2+width/4)
           {
-            if (mouseY> height/2 && mouseY < height/20)
+            if (mouseY> height/2 && mouseY < height-height/20)
             {
               if (levels < 3)
               {
                 //levels++;
+                draw.enemiesLeft = 3;
+                draw.enemiesKilled = 0;
                 draw.win = false;
                 draw.livesLeft = 3;
                 draw.respawn = false;
                 draw.pos.y = height-height/3;
                 draw.godown = false;
                 draw.goup = false;
-                draw.win = !draw.win;
-                levels = 1;
+                levels = 0;          // -------------------------------- TO BE CHANGED
               }
             }
           }
