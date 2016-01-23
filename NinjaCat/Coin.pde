@@ -1,10 +1,13 @@
 class Coin extends BaseClass implements PowerUp
 {
   int i;
+  float cx, cy;
 
-  Coin()
+  Coin(float x, float y)
   {
     this.i = 0;
+    this.cx = x;
+    this.cy = y;
   }
 
 
@@ -15,11 +18,25 @@ class Coin extends BaseClass implements PowerUp
   void render()
   {
     pushMatrix();
-    image(coins[i], displayWidth/2, displayHeight/2);
+    image(coins[i], cx, cy);
     popMatrix();
   }
   void update()
   {
+    if (mousePressed)
+    {
+      if (mouseX > cat.pos.x)
+      {
+        livesx = livesx - (cat.speed/2);
+      } else if (mouseX < cat.pos.x)
+      {
+        livesx = livesx + (cat.speed/2);
+      }
+    }
+
+    cx = livesx;
+    cy = livesy;
+
     if (i >= 5)
     {
       i = 0;

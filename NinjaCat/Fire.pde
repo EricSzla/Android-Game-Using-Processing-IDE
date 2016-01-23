@@ -38,10 +38,13 @@ class Fire extends BaseClass
         if (pos.x >= enemy.pos.x && enemy.pos.x >= cat.pos.x)    // Removes the fire if hits the enemy
         {
           drawLive = true;  // Draw live after enemy dies
+          drawCoin = true;  // Draw the coin after enemy dies
           lx = enemy.pos.x;
           ly = enemy.pos.y;
           Lives life = new Lives(lx, ly);
+          Coin coin = new Coin((lx * 5), ly);
           objectsArray.add(life);
+          objectsArray.add(coin);
 
 
           enemy.livesLeft --;

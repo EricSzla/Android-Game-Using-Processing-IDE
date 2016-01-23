@@ -20,13 +20,13 @@ KetaiVibrate vibration;
 BaseClass cat;
 BaseClass enemy;
 Levels level1;
-Coin coin;
 
 float lx, ly;
 
 int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
+boolean drawCoin = false; // Used to draw a powerUp after enemy dies
 boolean keyboardToggled = false;
 boolean add = true;
 
@@ -80,7 +80,6 @@ void setup()
   enemy = new Enemy();
   objectsArray.add(enemy);
   level1 = new LevelOne(img[0], obst, ground);
-  coin = new Coin();
 }
 
 void draw()
@@ -147,11 +146,7 @@ void draw()
         draw.update();
         draw.render();
 
-
-        coin.update();
-        coin.render();
-
-        if (drawLive)
+        if (drawLive || drawCoin)
         {
           checkCollisions();
         }
@@ -347,6 +342,17 @@ void checkCollisions()
           } else
           {
             continue;
+          }
+        } else if ( life instanceof Coin)
+        {
+          life.update();
+          life.render();
+
+          if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
+          {
+            drawCoin = false;
+            ((Coin) life). applyTo((Cat)theCat);
+            objectsArray.remove(life);
           }
         }
       }
