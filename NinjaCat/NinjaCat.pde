@@ -13,9 +13,11 @@
 // if enough time different levels and new enemies ? 
 
 import ketai.ui.*;
+import apwidgets.*;
 
 KetaiList menuList;
 KetaiVibrate vibration;
+PMediaPlayer player;
 
 BaseClass cat;
 BaseClass enemy;
@@ -64,6 +66,8 @@ void setup()
   smooth();
 
   vibration = new KetaiVibrate(this);
+  player = new PMediaPlayer(this);
+  
 
   img = new PImage[3];                  // Initialize PImage arrays
   catWalk = new PImage[4];
@@ -256,6 +260,10 @@ void loadData()
   menuCat.resize(width/3, height);
   menuTalk = loadImage("Menu/talk.png");
   menuTalk.resize(width/3, height/2);
+  
+  // Load Sounds
+  // player.setMediaFile("life.aif");      /// ANDROID PROBLEM, find other sound library?
+  
 }
 
 void drawMenu()
