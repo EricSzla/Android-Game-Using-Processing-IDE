@@ -22,6 +22,7 @@ class Cat extends BaseClass
 
     // Display enemies killed
     text("Enemies killed: " + enemiesKilled, width - width/10, height/25);
+    text("Score: " + score, width - (width/10 * 1.5),(height/25) * 2);
 
     pushMatrix();
 

@@ -14,6 +14,7 @@ abstract class BaseClass
   boolean respawn;
   int enemiesKilled;
   int enemiesLeft;
+  int score;
   boolean win = false;
 
   BaseClass()
@@ -34,6 +35,7 @@ abstract class BaseClass
     this.enemiesKilled = 0;
     this.enemiesLeft = 5;
     this.win = false;
+    this.score = 0;
 
     pos = new PVector(x, y);
     right = new PVector(x, y);

@@ -118,6 +118,7 @@ void draw()
           {
             drawLive = false;
             drawCoin = false;
+            draw.score = 0;
             objectsArray.remove(life);
           }
         }
@@ -181,6 +182,9 @@ void mousePressed()
       vibration.vibrate(200);
       KetaiKeyboard.toggle(this);
       keyboardToggled = true;
+    } else if (mouseX > (width/3)*2)
+    {
+      exit();
     }
   }
 }

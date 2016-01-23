@@ -15,14 +15,16 @@ class Coin extends BaseClass implements PowerUp
 
   void applyTo(Cat cat)
   {
-    //cat.score++;
+    cat.score+= 100;
   }
+  
   void render()
   {
     pushMatrix();
     image(coins[i], cx, cy);
     popMatrix();
   }
+  
   void update()
   {
     if (mousePressed)
@@ -44,6 +46,7 @@ class Coin extends BaseClass implements PowerUp
       i++;
     }
   }
+  
   void lostLife()
   {
   }
