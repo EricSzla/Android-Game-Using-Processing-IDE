@@ -11,7 +11,6 @@
 /* TO DO */
 // drawBg() function ? 
 // if enough time different levels and new enemies ? 
-// powerUps 
 
 import ketai.ui.*;
 
@@ -41,6 +40,7 @@ PImage[] enemyWalk;       // Used to store images for enemy walk animation
 PImage[] enemyFire;       // Used to store images for enemy fire
 PImage[] catFire;         // Used to store images for cat to shoot
 PImage[] img;             // Used to store background images
+PImage[] coins;           // Used to store images for coins
 PImage ground;            // Used to store ground image
 PImage obst;              // Used to store obstacle image
 PImage lives;             // Used to store lives image
@@ -69,6 +69,7 @@ void setup()
   catFire = new PImage[10];
   enemyWalk = new PImage[4];
   enemyFire = new PImage[10];
+  coins = new PImage[6];
 
   loadData();                           // Call load data function
 
@@ -82,7 +83,7 @@ void setup()
 
 void draw()
 {
-
+  
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
@@ -108,7 +109,7 @@ void draw()
             objectsArray.remove(life);
           }
         }
-        
+
         background(255);
         fill(0);
         stroke(0);
@@ -125,7 +126,6 @@ void draw()
             {
               if (levels < 3)
               {
-                //levels++;
                 draw.lostLive();
                 draw.enemiesLeft = 3;
                 draw.enemiesKilled = 0;
@@ -135,7 +135,7 @@ void draw()
                 draw.pos.y = height-height/3;
                 draw.godown = false;
                 draw.goup = false;
-                levels = 0;          // -------------------------------- TO BE CHANGED
+                levels = 0;          // -------------------------------- TO BE CHANGED ?
               }
             }
           }
@@ -238,6 +238,12 @@ void loadData()
     enemyFire[i].resize(displayWidth/3, displayHeight/4);
   }
 
+  for (int i = 0; i < coins.length; i++)
+  {
+    coins[i] = loadImage("Coins/coin" + (int)(i+1) + ".png");
+    //coins[i].resize(displayWidth/4, displayHeight/3);
+  }
+
   // Load rest of the images
   ground = loadImage("levels/ground.png");
   ground.resize(width, height/2);
@@ -326,7 +332,6 @@ void checkCollisions()
         {
           life.update();
           life.render();
-          println(life.livesx);
 
           if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
           {
