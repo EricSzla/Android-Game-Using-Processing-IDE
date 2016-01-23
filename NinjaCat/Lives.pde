@@ -38,7 +38,7 @@ class Lives extends BaseClass implements PowerUp
     lly = livesy;
   }
 
-  void lostLive()
+  void lostLife()
   {
   }
 }

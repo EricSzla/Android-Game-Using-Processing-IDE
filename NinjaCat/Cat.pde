@@ -28,7 +28,7 @@ class Cat extends BaseClass
     // Checking if cat lost life and needs to respawn, can only respawn if there are lives left
     if (respawn == true && livesLeft > 0)
     {
-      lostLive();
+      lostLife();
       respawn = !respawn;
     } else if (livesLeft == 0)
     {
@@ -160,7 +160,7 @@ class Cat extends BaseClass
     } // end of if mouse pressed
   } // end of update
 
-  void lostLive()
+  void lostLife()
   {
     // Reset cat position, enemy position and the platform position
     pos.x = width/2-width/5;

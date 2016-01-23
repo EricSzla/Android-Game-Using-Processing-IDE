@@ -41,5 +41,5 @@ abstract class BaseClass
 
   abstract void render();
   abstract void update();
-  abstract void lostLive();
+  abstract void lostLife();
 }

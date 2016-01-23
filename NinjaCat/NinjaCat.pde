@@ -20,6 +20,7 @@ KetaiVibrate vibration;
 BaseClass cat;
 BaseClass enemy;
 Levels level1;
+Coin coin;
 
 float lx, ly;
 
@@ -79,11 +80,12 @@ void setup()
   enemy = new Enemy();
   objectsArray.add(enemy);
   level1 = new LevelOne(img[0], obst, ground);
+  coin = new Coin();
 }
 
 void draw()
 {
-  
+
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
@@ -126,7 +128,7 @@ void draw()
             {
               if (levels < 3)
               {
-                draw.lostLive();
+                draw.lostLife();
                 draw.enemiesLeft = 3;
                 draw.enemiesKilled = 0;
                 draw.win = false;
@@ -144,6 +146,11 @@ void draw()
       {
         draw.update();
         draw.render();
+
+
+        coin.update();
+        coin.render();
+
         if (drawLive)
         {
           checkCollisions();
@@ -241,7 +248,6 @@ void loadData()
   for (int i = 0; i < coins.length; i++)
   {
     coins[i] = loadImage("Coins/coin" + (int)(i+1) + ".png");
-    //coins[i].resize(displayWidth/4, displayHeight/3);
   }
 
   // Load rest of the images

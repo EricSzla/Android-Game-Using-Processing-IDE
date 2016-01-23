@@ -45,7 +45,7 @@ class Fire extends BaseClass
 
 
           enemy.livesLeft --;
-          enemy.lostLive();
+          enemy.lostLife();
           cat.enemiesKilled ++;
           if (cat.enemiesLeft > 0)
           {
@@ -54,7 +54,7 @@ class Fire extends BaseClass
           {
             cat.win = true;
           }
-          lostLive();
+          lostLife();
         }
       } else if (direction == "left")
       {
@@ -64,18 +64,18 @@ class Fire extends BaseClass
           vibration.vibrate(200);
           cat.livesLeft --;
           cat.respawn = true;
-          lostLive();
+          lostLife();
         }
       }
       i++;
     } else  if (i == catFire.length-1)
     {
       // Removes the fire
-      lostLive();
+      lostLife();
     }
   } // end of update()
 
-  void lostLive()
+  void lostLife()
   {
     objectsArray.remove(this);
   }

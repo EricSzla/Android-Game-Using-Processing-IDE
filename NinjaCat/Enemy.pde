@@ -83,7 +83,7 @@ class Enemy extends BaseClass
     }
   } // end of update()
 
-  void lostLive()
+  void lostLife()
   {
     respawn = !respawn;
   }
