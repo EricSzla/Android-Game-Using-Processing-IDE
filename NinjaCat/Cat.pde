@@ -1,13 +1,11 @@
 class Cat extends BaseClass
 {
-  int ammoLeft;
   int i;
 
 
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
-    this.ammoLeft = 3;
     this.i = 0;
   }
 
