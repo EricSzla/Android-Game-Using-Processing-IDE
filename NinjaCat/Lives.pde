@@ -30,7 +30,7 @@ class Lives extends BaseClass implements PowerUp
     {
       if (mouseX > cat.pos.x)
       {
-        livesx = livesx - (cat.speed/2);
+        livesx = livesx - (cat.speed);
       }
     }
 

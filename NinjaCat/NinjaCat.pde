@@ -107,9 +107,10 @@ void draw()
     for (int i = 0; i <= objectsArray.size()-1; i++)
     {
       BaseClass draw = objectsArray.get(i);
-      if (draw.win)
+
+      if (draw.win || draw.livesLeft < 1)
       {
-        // Remove the life if drawn, after completing level
+        // Remove the life and coins if drawn, after completing or losing level
         for (int j = objectsArray.size() - 1; j >= 0; j --)
         {
           BaseClass life = objectsArray.get(j);
@@ -120,7 +121,10 @@ void draw()
             objectsArray.remove(life);
           }
         }
+      }
 
+      if (draw.win)
+      {
         background(255);
         fill(0);
         stroke(0);
@@ -338,10 +342,6 @@ void checkCollisions()
         BaseClass life = objectsArray.get(j);
         if (life instanceof Lives || life instanceof Coin) // Check the type of an object
         {
-          /*life.update();
-           life.render();
-           */
-
           if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
           {
             if (life instanceof Lives)
