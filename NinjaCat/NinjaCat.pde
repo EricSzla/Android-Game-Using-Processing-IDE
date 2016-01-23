@@ -11,14 +11,19 @@
 /* TO DO */
 // drawBg() function ? 
 // if enough time different levels and new enemies ? 
+// Solve android sound issue 
 
 import ketai.ui.*;
-import apwidgets.*;
+//import apwidgets.*;
 
 
 KetaiList menuList;
 KetaiVibrate vibration;
-PMediaPlayer player;
+
+// Sound library for Android. Not working?
+//PMediaPlayer player;
+//player = new PMediaPlayer(this);
+//player.setMediaFile("name.mp3");
 
 BaseClass cat;
 BaseClass enemy;
@@ -67,8 +72,7 @@ void setup()
   smooth();
 
   vibration = new KetaiVibrate(this);
-  player = new PMediaPlayer(this);
-  
+
   img = new PImage[3];                  // Initialize PImage arrays
   catWalk = new PImage[4];
   catFire = new PImage[10];
@@ -97,6 +101,7 @@ void draw()
     level1.updatelevel();      // Updates the level one
     level1.drawlevel();        // Draws the level one
     drawBg();                  // Draws controls
+    checkCollisions();
 
     // For loop to manipulate the class objects
     for (int i = 0; i <= objectsArray.size()-1; i++)
@@ -108,9 +113,10 @@ void draw()
         for (int j = objectsArray.size() - 1; j >= 0; j --)
         {
           BaseClass life = objectsArray.get(j);
-          if (life instanceof Lives) // Check the type of an object
+          if (life instanceof Lives || life instanceof Coin) // Check the type of an object
           {
             drawLive = false;
+            drawCoin = false;
             objectsArray.remove(life);
           }
         }
@@ -149,11 +155,6 @@ void draw()
       {
         draw.update();
         draw.render();
-
-        if (drawLive || drawCoin)
-        {
-          checkCollisions();
-        }
       }
     }
   } // End of if(levels == 1)
@@ -260,9 +261,8 @@ void loadData()
   menuCat.resize(width/3, height);
   menuTalk = loadImage("Menu/talk.png");
   menuTalk.resize(width/3, height/2);
-  
+
   // player.setMediaFile("life.aif");      /// ANDROID PROBLEM, find other sound library?
-  
 }
 
 void drawMenu()
@@ -336,30 +336,28 @@ void checkCollisions()
       for (int j = objectsArray.size() - 1; j >= 0; j --)
       {
         BaseClass life = objectsArray.get(j);
-        if (life instanceof Lives) // Check the type of an object
+        if (life instanceof Lives || life instanceof Coin) // Check the type of an object
         {
-          life.update();
-          life.render();
+          /*life.update();
+           life.render();
+           */
 
           if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
           {
-            drawLive = false;
-            ((Lives) life). applyTo((Cat)theCat);
+            if (life instanceof Lives)
+            {
+              drawLive = false;
+              ((Lives) life). applyTo((Cat)theCat);
+            } else if (life instanceof Coin)
+            {
+              drawCoin = false;
+              ((Coin) life). applyTo((Cat)theCat);
+            }
+
             objectsArray.remove(life);
           } else
           {
             continue;
-          }
-        } else if ( life instanceof Coin)
-        {
-          life.update();
-          life.render();
-
-          if (theCat.pos.x >= (life.livesx - width/15) && theCat.pos.x <= (life.livesx + width/15))
-          {
-            drawCoin = false;
-            ((Coin) life). applyTo((Cat)theCat);
-            objectsArray.remove(life);
           }
         }
       }

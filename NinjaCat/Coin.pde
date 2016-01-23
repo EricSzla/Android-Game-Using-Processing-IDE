@@ -8,6 +8,8 @@ class Coin extends BaseClass implements PowerUp
     this.i = 0;
     this.cx = x;
     this.cy = y;
+    this.livesx = x;
+    this.livesy = y;
   }
 
 
@@ -34,9 +36,9 @@ class Coin extends BaseClass implements PowerUp
       }
     }
 
-    cx = livesx;
-    cy = livesy;
-
+    this.cx = livesx;
+    this.cy = livesy;
+    
     if (i >= 5)
     {
       i = 0;

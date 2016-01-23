@@ -42,7 +42,7 @@ class Fire extends BaseClass
           lx = enemy.pos.x;
           ly = enemy.pos.y;
           Lives life = new Lives(lx, ly);
-          Coin coin = new Coin((lx * 5), ly);
+          Coin coin = new Coin((lx * 1.5), ly);
           objectsArray.add(life);
           objectsArray.add(coin);
 
