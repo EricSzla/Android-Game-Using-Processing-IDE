@@ -22,7 +22,7 @@ class Cat extends BaseClass
 
     // Display enemies killed
     text("Enemies killed: " + enemiesKilled, width - width/10, height/25);
-    text("Score: " + score, width - (width/10 * 1.5),(height/25) * 2);
+    text("Score: " + score, width - (width/10 * 1.5), (height/25) * 2);
 
     pushMatrix();
 
@@ -39,6 +39,7 @@ class Cat extends BaseClass
       text("GAME OVER", width/2, height/2);
       text("Enemies killed: " + enemiesKilled, width/2, height/2+height/20);
       text("Enemies left  : " + enemiesLeft, width/2, height/2+height/10);
+      text("Score         : " + score, width/2, height/2 + (height/10) * 2);
     }
 
     // Draw Cat
