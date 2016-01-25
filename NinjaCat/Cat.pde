@@ -7,6 +7,7 @@ class Cat extends BaseClass
   {
     super(x, y, y2);
     this.i = 0;
+    this.time = false;
   }
 
   Cat()
@@ -33,15 +34,13 @@ class Cat extends BaseClass
       respawn = !respawn;
     } else if (livesLeft == 0)
     {
-      fill(0);
-      rect(0, 0, width, height);
-      fill(255);
-      text("GAME OVER", width/2, height/2);
-      text("Enemies killed: " + enemiesKilled, width/2, height/2+height/20);
-      text("Enemies left  : " + enemiesLeft, width/2, height/2+height/10);
-      text("Score         : " + score, width/2, height/2 + (height/10) * 2);
+      gameOverfx();
     }
 
+    if (time)
+    {
+      time = false;
+    }
     // Draw Cat
     if (livesLeft != 0 && !win)
     {
@@ -170,5 +169,16 @@ class Cat extends BaseClass
     level1.x = width/2;
     level1.x2 = 0;
     enemy.pos.x = width + width/2;
+  }
+
+  void gameOverfx()
+  {
+    fill(0);
+    rect(0, 0, width, height);
+    fill(255);
+    text("GAME OVER", width/2, height/2);
+    text("Enemies killed: " + enemiesKilled, width/2, height/2+height/20);
+    text("Enemies left  : " + enemiesLeft, width/2, height/2+height/10);
+    text("Score         : " + score, width/2, height/2 + height/7);
   }
 } // end class

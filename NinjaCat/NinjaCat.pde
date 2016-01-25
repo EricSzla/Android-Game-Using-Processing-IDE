@@ -108,18 +108,20 @@ void draw()
     {
       BaseClass draw = objectsArray.get(i);
 
-      if (draw.win || draw.livesLeft < 1)
+      if (draw instanceof Cat)
       {
-        // Remove the life and coins if drawn, after completing or losing level
-        for (int j = objectsArray.size() - 1; j >= 0; j --)
+        if (draw.win || draw.livesLeft < 1)
         {
-          BaseClass life = objectsArray.get(j);
-          if (life instanceof Lives || life instanceof Coin) // Check the type of an object
+          // Remove the life and coins if drawn, after completing or losing level
+          for (int j = objectsArray.size() - 1; j >= 0; j --)
           {
-            drawLive = false;
-            drawCoin = false;
-            draw.score = 0;
-            objectsArray.remove(life);
+            BaseClass life = objectsArray.get(j);
+            if (life instanceof Lives || life instanceof Coin) // Check the type of an object
+            {
+              drawLive = false;
+              drawCoin = false;
+              objectsArray.remove(life);
+            }
           }
         }
       }
@@ -256,6 +258,7 @@ void loadData()
   for (int i = 0; i < coins.length; i++)
   {
     coins[i] = loadImage("Coins/coin" + (int)(i+1) + ".png");
+    coins[i].resize(displayWidth/20, displayHeight/10);
   }
 
   // Load rest of the images
@@ -351,7 +354,10 @@ void checkCollisions()
             if (life instanceof Lives)
             {
               drawLive = false;
-              ((Lives) life). applyTo((Cat)theCat);
+              if (theCat.livesLeft < 3)
+              {
+                ((Lives) life). applyTo((Cat)theCat);
+              }
             } else if (life instanceof Coin)
             {
               drawCoin = false;
