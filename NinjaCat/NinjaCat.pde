@@ -13,17 +13,20 @@
 // if enough time different levels and new enemies ? 
 // Solve android sound issue 
 
-import ketai.ui.*;
-//import apwidgets.*;
 
+
+import ketai.ui.*;
+/*import apwidgets.*;
+import android.media.*;
+import android.media.MediaPlayer.*;
+import android.media.AudioManager.*;*/
 
 KetaiList menuList;
 KetaiVibrate vibration;
 
 // Sound library for Android. Not working?
-//PMediaPlayer player;
-//player = new PMediaPlayer(this);
-//player.setMediaFile("name.mp3");
+/*MediaPlayer player1;
+PMediaPlayer player;*/
 
 BaseClass cat;
 BaseClass enemy;
@@ -62,6 +65,15 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 
 void setup()
 {  
+  /*player = new PMediaPlayer(this);
+  player.setMediaFile("Sounds/gameover.wav");
+  player.start();
+  player.setLooping(true);
+  player.setVolume(1.0, 1.0);
+
+  player1 = new MediaPlayer();
+  player1.setDataSource("gameover.wav");*/
+
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
@@ -272,8 +284,6 @@ void loadData()
   menuCat.resize(width/3, height);
   menuTalk = loadImage("Menu/talk.png");
   menuTalk.resize(width/3, height/2);
-
-  // player.setMediaFile("life.aif");      /// ANDROID PROBLEM, find other sound library?
 }
 
 void drawMenu()
@@ -374,3 +384,10 @@ void checkCollisions()
     }
   }
 }
+
+
+/*public void onDestroy() {
+  if (player!=null) { //must be checked because or else crash when return from landscape mode
+    player.release(); //release the player
+  }
+}*/

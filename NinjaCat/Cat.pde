@@ -98,13 +98,12 @@ class Cat extends BaseClass
       }
     }
 
-
     if (mousePressed)
     {
       // If statement to check if user clicked on the right hand side of the cat
       // If so then inrement cat's position x
       // And decrement the platform x position
-      if (mouseX > pos.x)
+      if (mouseX > pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && livesLeft !=0)))
       {
         pos.x = pos.x + (speed/2);
         level1.x2 = level1.x2 - (speed*2);
