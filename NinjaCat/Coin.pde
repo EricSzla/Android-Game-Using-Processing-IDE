@@ -28,7 +28,7 @@ class Coin extends BaseClass implements PowerUp
   void update()
   {
     if (mousePressed)
-    {
+    { // Check if clicked on the right hand side of the cat and not in the square used for shooting 
       if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && livesLeft !=0)))
       {
         livesx = livesx - (cat.speed);

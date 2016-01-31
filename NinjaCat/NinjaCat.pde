@@ -297,7 +297,7 @@ void loadData()
   }
 
   // Load rest of the images
-  obst = loadImage("levels/tower.png");
+  obst = loadImage("levels/crate.png");
   obst.resize(width/10, height/10);
   lives = loadImage("Cat/lives.png");
   lives.resize(width/15, height/15);

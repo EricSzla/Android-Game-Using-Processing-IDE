@@ -18,13 +18,6 @@ class Cat extends BaseClass
   void render()
   {
     fill(0);
-    // rectange in right hand corner for shooting
-    rect(width- width/10, height - height/10, width/10, width/10);
-
-    // Display enemies killed
-    text("Enemies killed: " + enemiesKilled, width - width/10, height/25);
-    text("Score: " + score, width - (width/10 * 1.5), (height/25) * 2);
-
     pushMatrix();
 
     // Checking if cat lost life and needs to respawn, can only respawn if there are lives left
@@ -46,16 +39,7 @@ class Cat extends BaseClass
     {
       image(catWalk[i], pos.x, pos.y);
     }
-
-    // Draw lives
-    imageMode(CORNER);
-    for (int i = 0; i < livesLeft; i++)
-    {
-      image(lives, width/15 * i+1, height/25);
-    }
-
     popMatrix();
-    imageMode(CENTER);
   }
 
   void update()
