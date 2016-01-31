@@ -29,7 +29,7 @@ class Coin extends BaseClass implements PowerUp
   {
     if (mousePressed)
     {
-      if (mouseX > cat.pos.x)
+      if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && livesLeft !=0)))
       {
         livesx = livesx - (cat.speed);
       }

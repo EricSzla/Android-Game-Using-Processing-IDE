@@ -12,7 +12,7 @@ class Cat extends BaseClass
 
   Cat()
   {
-    this(width/2-width/5, height - (height/3), height - (height/3));
+    this(width/2-width/5, height - (height/5), height - (height/5));
   }
 
   void render()
@@ -61,7 +61,7 @@ class Cat extends BaseClass
   void update()
   {
     // If statement to check if cat is in the hole
-    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/3)))
+    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/5)))
     {
       // If it is change godown to true
       godown = true;
@@ -84,15 +84,15 @@ class Cat extends BaseClass
     if (goup == true)
     {
       pos.y = pos.y - speed;
-      // If reaches height-(height/2) then change the goup to false
-      if (pos.y <= height - (height/2))
+      // If reaches height-(height/3) then change the goup to false
+      if (pos.y <= height - (height/3))
       {
         goup = !goup;
       }
     } else if (goup == false) 
     {
       // Start falling back down to the platform 
-      if (pos.y < height - (height/3))
+      if (pos.y < height - (height/5))
       {
         pos.y = pos.y + speed;
       }
@@ -131,9 +131,9 @@ class Cat extends BaseClass
 
       // If statement to check if user clicked 'above' the cat if so boolean goup is changed
       // which will lead to cat jumping
-      if (mouseY < height - (height/3))
+      if (mouseY < height - (height/5))
       {
-        if (pos.y == height - (height/3) && goup == false)
+        if (pos.y == height - (height/5) && goup == false)
         {
           goup = !goup;
         }
@@ -164,7 +164,7 @@ class Cat extends BaseClass
   {
     // Reset cat position, enemy position and the platform position
     pos.x = width/2-width/5;
-    pos.y = height - (height/3);
+    pos.y = height - (height/5);
     level1.x = width/2;
     level1.x2 = 0;
     enemy.pos.x = width + width/2;

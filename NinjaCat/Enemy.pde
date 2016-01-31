@@ -5,7 +5,7 @@ class Enemy extends BaseClass
 
   Enemy()
   {
-    super(width, height - (height/3), height - (height/3));
+    super(width, height - (height/5), height - (height/5));
     this.i = 0;
     this.jump = true;
     this.livesLeft = 5;
@@ -31,7 +31,7 @@ class Enemy extends BaseClass
   void update()
   {
     // If statement to check if enemy has to jump
-    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/3)))
+    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/5)))
     {
       // If it is change goup to true
       goup = true;
@@ -41,15 +41,15 @@ class Enemy extends BaseClass
     if (goup == true)
     {
       pos.y = pos.y - speed;
-      // If reaches height-(height/2) then change the goup to false
-      if (pos.y <= height - (height/2))
+      // If reaches height-(height/3) then change the goup to false
+      if (pos.y <= height - (height/3))
       {
         goup = !goup;
       }
     } else if (goup == false) 
     {
       // Start falling back down to the platform 
-      if (pos.y < height - (height/3))
+      if (pos.y < height - (height/5))
       {
         pos.y = pos.y + speed;
       }

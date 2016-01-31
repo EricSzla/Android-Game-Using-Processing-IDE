@@ -16,10 +16,11 @@
 
 
 import ketai.ui.*;
-/*import apwidgets.*;
- import android.media.*;
- import android.media.MediaPlayer.*;
- import android.media.AudioManager.*;*/
+import apwidgets.*;
+import android.*;
+import android.media.*;
+import android.media.MediaPlayer.*;
+import android.media.AudioManager.*;
 
 KetaiList menuList;
 KetaiVibrate vibration;
@@ -75,13 +76,14 @@ void setup()
    player1 = new MediaPlayer();
    player1.setDataSource("gameover.wav");*/
 
+  println(displayWidth + " " + displayHeight);
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
   textAlign(CENTER);
   imageMode(CENTER);
   orientation(LANDSCAPE);               // Display in LANDSCAPE mode
-  frameRate(60);                        // Change the frameRate to 60
+  setFrameRate();
   smooth();
 
   vibration = new KetaiVibrate(this);
@@ -97,7 +99,7 @@ void setup()
   loadData();                           // Call load data function
 
   // Initialize classes
-  cat = new Cat(width/2-width/5, height - (height/3), height - (height/3));
+  cat = new Cat(width/2-width/5, height - (height/5), height - (height/5));
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
@@ -265,7 +267,7 @@ void loadData()
     img[i].resize(displayWidth, displayHeight);
 
     ground[i] = loadImage("levels/g" + (i+1) + ".png");
-    ground[i].resize(width, height/2);
+    ground[i].resize(width, height/4);
   }
 
   // Load images for cat walk && enemy walk
@@ -383,6 +385,7 @@ void onKetaiListSelection(KetaiList list)
     }
   }
 }
+
 // drawBg() used to draw the background for each level
 void drawBg()
 {
@@ -391,6 +394,7 @@ void drawBg()
     if (levels == i)
     {
       level1.img = img[i-1];
+      level1.platform = ground[i-1];
     }
   }
 }
@@ -433,6 +437,21 @@ void checkCollisions()
   }
 }
 
+void setFrameRate()
+{
+  /* Method which sets the frameRate depending on the screen size, the smaller the screen the smaller the frameRate */
+
+  if (displayWidth > 2500 && displayHeight > 1400)
+  {
+    frameRate(60);                        // Change the frameRate to 60
+  } else if ( displayWidth > 1100 && displayHeight > 700)
+  {
+    frameRate(25);                        // Change the frameRate to 25
+  } else if ( displayWidth < 1100 && displayHeight < 700 )
+  {
+    frameRate(10);
+  }
+}
 
 /*public void onDestroy() {
  if (player!=null) { //must be checked because or else crash when return from landscape mode

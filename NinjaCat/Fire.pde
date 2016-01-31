@@ -6,7 +6,7 @@ class Fire extends BaseClass
 
   Fire(String direction)
   {
-    speed = height/10;
+    this.speed = height/10;
     this.counter = 0;
     this.i = 0;
     this.direction = direction;
