@@ -202,7 +202,7 @@ void draw()
                 draw.win = false;
                 draw.livesLeft = 3;
                 draw.respawn = false;
-                draw.pos.y = height-height/3;
+                draw.pos.y = height-height/5;
                 draw.godown = false;
                 draw.goup = false;
 

@@ -37,14 +37,20 @@ class Fire extends BaseClass
         pos.x = pos.x + speed/2;
         if (pos.x >= enemy.pos.x && enemy.pos.x >= cat.pos.x)    // Removes the fire if hits the enemy
         {
-          drawLive = true;  // Draw live after enemy dies
+
           drawCoin = true;  // Draw the coin after enemy dies
           lx = enemy.pos.x;
           ly = enemy.pos.y;
-          Lives life = new Lives(lx, ly);
           Coin coin = new Coin((lx * 1.5), ly);
-          objectsArray.add(life);
           objectsArray.add(coin);
+
+          if (cat.livesLeft < 3)
+          {
+            drawLive = true;  // Draw live after enemy dies
+            Lives life = new Lives(lx, ly);
+            objectsArray.add(life);
+          }
+
 
 
           enemy.livesLeft --;
@@ -64,7 +70,7 @@ class Fire extends BaseClass
         pos.x = pos.x - speed/2;
         if (pos.x <= cat.pos.x)      // Removes the fire if hits the cat
         {
-          soundPlay(lostLiveMusic,0);
+          soundPlay(lostLiveMusic, 0);
           vibration.vibrate(200);
           cat.livesLeft --;
           cat.respawn = true;
