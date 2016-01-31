@@ -17,16 +17,16 @@
 
 import ketai.ui.*;
 /*import apwidgets.*;
-import android.media.*;
-import android.media.MediaPlayer.*;
-import android.media.AudioManager.*;*/
+ import android.media.*;
+ import android.media.MediaPlayer.*;
+ import android.media.AudioManager.*;*/
 
 KetaiList menuList;
 KetaiVibrate vibration;
 
 // Sound library for Android. Not working?
 /*MediaPlayer player1;
-PMediaPlayer player;*/
+ PMediaPlayer player;*/
 
 BaseClass cat;
 BaseClass enemy;
@@ -34,6 +34,7 @@ Levels level1;
 
 float lx, ly;
 
+int levels2 = 0;
 int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
@@ -66,13 +67,13 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 void setup()
 {  
   /*player = new PMediaPlayer(this);
-  player.setMediaFile("Sounds/gameover.wav");
-  player.start();
-  player.setLooping(true);
-  player.setVolume(1.0, 1.0);
-
-  player1 = new MediaPlayer();
-  player1.setDataSource("gameover.wav");*/
+   player.setMediaFile("Sounds/gameover.wav");
+   player.start();
+   player.setLooping(true);
+   player.setVolume(1.0, 1.0);
+   
+   player1 = new MediaPlayer();
+   player1.setDataSource("gameover.wav");*/
 
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
@@ -154,18 +155,24 @@ void draw()
           {
             if (mouseY> height/2 && mouseY < height-height/20)
             {
-              if (levels < 3)
+              draw.lostLife();
+              draw.enemiesLeft = 5;
+              draw.enemiesKilled = 0;
+              draw.win = false;
+              draw.livesLeft = 3;
+              draw.respawn = false;
+              draw.pos.y = height-height/3;
+              draw.godown = false;
+              draw.goup = false;
+              draw.timeleft = 30;
+              if (levels2 < 3)
               {
-                draw.lostLife();
-                draw.enemiesLeft = 3;
-                draw.enemiesKilled = 0;
-                draw.win = false;
-                draw.livesLeft = 3;
-                draw.respawn = false;
-                draw.pos.y = height-height/3;
-                draw.godown = false;
-                draw.goup = false;
-                levels = 0;          // -------------------------------- TO BE CHANGED ?
+                levels ++;
+                levels2++;
+              } else
+              {
+                levels  = 0;
+                levels2 = 0;
               }
             }
           }
@@ -176,7 +183,17 @@ void draw()
         draw.render();
       }
     }
-  } // End of if(levels == 1)
+  } else if (levels == 2)
+  {
+    levels2 = 2;
+    level1.img = img[1];
+    levels = 1;
+  } else if (levels == 3)
+  {
+    levels2 = 3;
+    level1.img = img[2]; 
+    levels = 1;
+  }
 } // End of draw()
 
 void mousePressed()
@@ -329,10 +346,10 @@ void onKetaiListSelection(KetaiList list)
     levels = 1;
   } else if (levelChoice == "Level 2")
   {
-    levels = 0;
+    levels = 2;
   } else if (levelChoice == "Level 3")
   {
-    levels = 0;
+    levels = 3;
   } else
   {
     levels = 0;
@@ -387,7 +404,7 @@ void checkCollisions()
 
 
 /*public void onDestroy() {
-  if (player!=null) { //must be checked because or else crash when return from landscape mode
-    player.release(); //release the player
-  }
-}*/
+ if (player!=null) { //must be checked because or else crash when return from landscape mode
+ player.release(); //release the player
+ }
+ }*/
