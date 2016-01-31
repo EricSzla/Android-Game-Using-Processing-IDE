@@ -16,18 +16,12 @@
 
 
 import ketai.ui.*;
-//import apwidgets.*;
-//import processing.sound.*;
-/*import android.*;
- import android.media.*;
- import android.media.MediaPlayer.*;
- import android.content.*;*/
 
 KetaiList menuList;
 KetaiVibrate vibration;
 
-// Sound library for Android. Not working?
-MediaPlayer myTrack; // < -- doesn't work ( android )
+// Sound library for Android.
+MediaPlayer myTrack;
 MediaPlayer coinMusic;
 MediaPlayer livesMusic;
 MediaPlayer lostLiveMusic;
@@ -36,9 +30,6 @@ MediaPlayer jumpMusic;
 MediaPlayer level1Music;
 MediaPlayer level2Music;
 MediaPlayer level3Music;
-
-//PMediaPlayer player; //< -- ( apwidgets )
-//SoundFile file; // < -- (processing.sound)
 
 BaseClass cat;
 BaseClass enemy;
@@ -83,28 +74,7 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 
 void setup()
 {  
-  /* For import apwidgets.* 
-   player = new PMediaPlayer(this);
-   player.setMediaFile("./sounds/gameover.wav");  //< -- doesn't work
-   player.start();
-   player.setLooping(true);
-   player.setVolume(1.0, 1.0);
-   */
-
-  /* For import.andriod.media.
-   MediaPlayer mediaPlayer = new MediaPlayer();
-   mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-   mediaPlayer.setDataSource("gameover.wav",this);
-   mediaPlayer.prepare();
-   mediaPlayer.start();
-   */
-
-  /* For processing.sound
-   file = new SoundFile(this, "/gameover.wav");
-   file.play();
-   */
-
-  //for mod_sound_android
+  //Loading sounds using mod_sound_android library
   myTrack = soundLoad("Sounds/menu.mp3", true);
   coinMusic = soundLoad("Sounds/coin.mp3", true);
   livesMusic = soundLoad("Sounds/life.mp3", true);
