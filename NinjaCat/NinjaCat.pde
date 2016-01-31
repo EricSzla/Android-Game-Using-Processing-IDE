@@ -16,18 +16,29 @@
 
 
 import ketai.ui.*;
-import apwidgets.*;
-import android.*;
-import android.media.*;
-import android.content.res.*;
+//import apwidgets.*;
+//import processing.sound.*;
+/*import android.*;
+ import android.media.*;
+ import android.media.MediaPlayer.*;
+ import android.content.*;*/
 
 KetaiList menuList;
 KetaiVibrate vibration;
 
 // Sound library for Android. Not working?
-MediaPlayer player1;
-PMediaPlayer player;
-//SoundPool soundPool;
+MediaPlayer myTrack; // < -- doesn't work ( android )
+MediaPlayer coinMusic;
+MediaPlayer livesMusic;
+MediaPlayer lostLiveMusic;
+MediaPlayer shootMusic;
+MediaPlayer jumpMusic;
+MediaPlayer level1Music;
+MediaPlayer level2Music;
+MediaPlayer level3Music;
+
+//PMediaPlayer player; //< -- ( apwidgets )
+//SoundFile file; // < -- (processing.sound)
 
 BaseClass cat;
 BaseClass enemy;
@@ -39,6 +50,7 @@ color c, d;
 int levels2 = 0;
 int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
+int GAME_STEEP = 0;
 
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
 boolean drawCoin = false; // Used to draw a powerUp after enemy dies
@@ -46,6 +58,7 @@ boolean keyboardToggled = false;
 boolean add = true;
 boolean coinup = false;
 boolean liveup = false;
+boolean firstplay = false;
 
 String name;
 String localtion;
@@ -70,11 +83,39 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 
 void setup()
 {  
-  player = new PMediaPlayer(this);
-  //player.setMediaFile("gameover.wav");
-  player.start();
-  player.setLooping(true);
-  player.setVolume(1.0, 1.0);
+  /* For import apwidgets.* 
+   player = new PMediaPlayer(this);
+   player.setMediaFile("./sounds/gameover.wav");  //< -- doesn't work
+   player.start();
+   player.setLooping(true);
+   player.setVolume(1.0, 1.0);
+   */
+
+  /* For import.andriod.media.
+   MediaPlayer mediaPlayer = new MediaPlayer();
+   mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+   mediaPlayer.setDataSource("gameover.wav",this);
+   mediaPlayer.prepare();
+   mediaPlayer.start();
+   */
+
+  /* For processing.sound
+   file = new SoundFile(this, "/gameover.wav");
+   file.play();
+   */
+
+  //for mod_sound_android
+  myTrack = soundLoad("Sounds/menu.mp3", true);
+  coinMusic = soundLoad("Sounds/coin.mp3", true);
+  livesMusic = soundLoad("Sounds/life.mp3", true);
+  lostLiveMusic = soundLoad("Sounds/gameover.mp3", true);
+  shootMusic = soundLoad("Sounds/shoot.mp3", true);
+  jumpMusic = soundLoad("Sounds/jump.mp3", true);
+  level1Music = soundLoad("Sounds/levelOne.mp3", true);
+  level2Music = soundLoad("Sounds/levelTwo.mp3", true);
+  soundSetLoop(myTrack, true);
+  soundSetLoop(level1Music, true);
+  soundSetLoop(level2Music, true);
 
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
@@ -102,7 +143,7 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-  level1 = new Levels(img[0],ground[0]);
+  level1 = new Levels(img[0], ground[0]);
 }
 
 void draw()
@@ -110,8 +151,32 @@ void draw()
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
+    if (firstplay == false)
+    {
+      soundPlay(myTrack);
+      firstplay = true;
+    }
   } else if (levels >= 1 && levels <= 3)      // If users chooses level 1 then the game begins
   {
+    soundPause(myTrack, true);
+    if (levels == 1)
+    {
+      if (!soundIsPlaying(level1Music))
+      {
+        soundPlay(level1Music);
+      }
+    } else if (levels == 2)
+    {
+      soundPause(level1Music, true);
+      if (!soundIsPlaying(level2Music))
+      {
+        soundPlay(level2Music);
+      }
+    } else if ( levels == 3)
+    {
+      soundPause(level2Music, true);
+    }
+
     drawBg();
     level1.updatelevel();      // Updates the level one
     level1.drawlevel();        // Draws the level one
@@ -203,7 +268,6 @@ void draw()
 
 void mousePressed()
 {
-
   // If levels == 0, that means if the Menu is showed
   if (levels == 0 && mouseY > height-height/10)
   {
@@ -415,6 +479,7 @@ void checkCollisions()
           {
             if (life instanceof Lives)
             {
+              soundPlay(livesMusic, 0);
               drawLive = false;
               if (theCat.livesLeft < 3)
               {
@@ -424,6 +489,7 @@ void checkCollisions()
               }
             } else if (life instanceof Coin)
             {
+              soundPlay(coinMusic, 0);
               drawCoin = false;
               ((Coin) life). applyTo((Cat)theCat);
               coinup = true;

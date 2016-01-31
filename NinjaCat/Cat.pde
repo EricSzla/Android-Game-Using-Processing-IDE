@@ -120,6 +120,7 @@ class Cat extends BaseClass
         if (pos.y == height - (height/5) && goup == false)
         {
           goup = !goup;
+          soundPlay(jumpMusic);
         }
       }
 
@@ -132,6 +133,7 @@ class Cat extends BaseClass
         {
           if (frameCount >= 7)
           {
+            soundPlay(shootMusic);
             Fire fire = new Fire("right");
             fire.pos.x = pos.x;
             fire.pos.y = pos.y;
