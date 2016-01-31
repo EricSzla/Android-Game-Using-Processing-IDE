@@ -19,29 +19,33 @@ import ketai.ui.*;
 import apwidgets.*;
 import android.*;
 import android.media.*;
-import android.media.MediaPlayer.*;
-import android.media.AudioManager.*;
+import android.content.res.*;
 
 KetaiList menuList;
 KetaiVibrate vibration;
 
 // Sound library for Android. Not working?
-/*MediaPlayer player1;
- PMediaPlayer player;*/
+MediaPlayer player1;
+PMediaPlayer player;
+//SoundPool soundPool;
 
 BaseClass cat;
 BaseClass enemy;
 Levels level1;
 
 float lx, ly;
+color c, d;
 
 int levels2 = 0;
 int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
+
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
 boolean drawCoin = false; // Used to draw a powerUp after enemy dies
 boolean keyboardToggled = false;
 boolean add = true;
+boolean coinup = false;
+boolean liveup = false;
 
 String name;
 String localtion;
@@ -56,7 +60,6 @@ PImage[] catFire;         // Used to store images for cat to shoot
 PImage[] img;             // Used to store background images
 PImage[] coins;           // Used to store images for coins
 PImage[] ground;            // Used to store ground image
-PImage obst;              // Used to store obstacle image
 PImage lives;             // Used to store lives image
 
 // ArrayList objectsArray is used to store class objects
@@ -67,16 +70,12 @@ ArrayList<String> menuChoice = new ArrayList<String>();
 
 void setup()
 {  
-  /*player = new PMediaPlayer(this);
-   player.setMediaFile("Sounds/gameover.wav");
-   player.start();
-   player.setLooping(true);
-   player.setVolume(1.0, 1.0);
-   
-   player1 = new MediaPlayer();
-   player1.setDataSource("gameover.wav");*/
+  player = new PMediaPlayer(this);
+  //player.setMediaFile("gameover.wav");
+  player.start();
+  player.setLooping(true);
+  player.setVolume(1.0, 1.0);
 
-  println(displayWidth + " " + displayHeight);
   size(displayWidth, displayHeight);    // Display in full screen mode
   colorMode(RGB, 255, 255, 255, 100);
   textSize(height/20);
@@ -103,7 +102,7 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-  level1 = new Levels(img[0], obst, ground[0]);
+  level1 = new Levels(img[0],ground[0]);
 }
 
 void draw()
@@ -118,7 +117,10 @@ void draw()
     level1.drawlevel();        // Draws the level one
 
     checkCollisions();
-
+    if (coinup || liveup)
+    {
+      powerUpfxn();
+    }
     // For loop to manipulate the class objects
     for (int i = 0; i <= objectsArray.size()-1; i++)
     {
@@ -297,8 +299,6 @@ void loadData()
   }
 
   // Load rest of the images
-  obst = loadImage("levels/crate.png");
-  obst.resize(width/10, height/10);
   lives = loadImage("Cat/lives.png");
   lives.resize(width/15, height/15);
   menuCat = loadImage("Menu/cat.png");
@@ -419,11 +419,15 @@ void checkCollisions()
               if (theCat.livesLeft < 3)
               {
                 ((Lives) life). applyTo((Cat)theCat);
+                liveup = true;
+                c = color(random(0, 255), random(0, 255), random(0, 255));
               }
             } else if (life instanceof Coin)
             {
               drawCoin = false;
               ((Coin) life). applyTo((Cat)theCat);
+              coinup = true;
+              d = color(random(0, 255), random(0, 255), random(0, 255));
             }
 
             objectsArray.remove(life);
@@ -453,8 +457,29 @@ void setFrameRate()
   }
 }
 
-/*public void onDestroy() {
- if (player!=null) { //must be checked because or else crash when return from landscape mode
- player.release(); //release the player
- }
- }*/
+void powerUpfxn()
+{
+  if (liveup)
+  {
+    if (frameCount % 30 < 15)
+    {
+      fill(c);
+      text("Lives ++ !", cat.pos.x - width/10, cat.pos.y - height/10);
+    } else
+    {
+      liveup = false;
+    }
+  }
+
+  if (coinup)
+  {
+    if (frameCount % 30 < 15)
+    {
+      fill(d);
+      text("+ 100 !", cat.pos.x + width/10, cat.pos.y - height/10);
+    } else
+    {
+      coinup = false;
+    }
+  }
+}

@@ -1,16 +1,14 @@
 class Levels
 {
   PImage img;
-  PImage obstacle;
   PImage platform;
   float x, y;
   float x2;
   int i = 0;
 
-  Levels(PImage image, PImage obstacle, PImage plat)
+  Levels(PImage image, PImage plat)
   {
     this.img = image;
-    this.obstacle = obst;
     this.platform = plat;
     this.x = width/2;
     this.y = height;
