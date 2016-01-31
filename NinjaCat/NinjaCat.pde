@@ -100,7 +100,7 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-  level1 = new LevelOne(img[0], obst, ground);
+  level1 = new Levels(img[0], obst, ground);
 }
 
 void draw()
