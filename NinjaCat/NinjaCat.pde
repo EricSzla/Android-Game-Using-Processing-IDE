@@ -105,15 +105,15 @@ void setup()
 
 void draw()
 {
-
   if (levels == 0)             // If level is 0 then draw menu
   {
     drawMenu();
-  } else if (levels == 1)      // If users chooses level 1 then the game begins
+  } else if (levels >= 1 && levels <= 3)      // If users chooses level 1 then the game begins
   {
+    drawBg();
     level1.updatelevel();      // Updates the level one
     level1.drawlevel();        // Draws the level one
-    drawBg();                  // Draws controls
+
     checkCollisions();
 
     // For loop to manipulate the class objects
@@ -144,38 +144,48 @@ void draw()
         background(255);
         fill(0);
         stroke(0);
-        text("Level " + levels + " passed !", width/2, height/2);
-        fill(255);
-        rect(width/4, height/2+height/20, width/2, height/20);
-        fill(0);
-        text("Click to progress to next level!", width/2, height/2+height/10);
-        if (mousePressed)
+        if (levels < 3)
         {
-          if (mouseX > width/4 && mouseX < width/2+width/4)
+          text("Level " + levels + " passed !", width/2, height/2);
+          fill(255);
+          rect(width/4, height/2+height/20, width/2, height/15);
+          fill(0);
+          text("Click to progress to next level!", width/2, height/2+height/10);
+          if (mousePressed)
           {
-            if (mouseY> height/2 && mouseY < height-height/20)
+            if (mouseX > width/4 && mouseX < width/2+width/4)
             {
-              draw.lostLife();
-              draw.enemiesLeft = 5;
-              draw.enemiesKilled = 0;
-              draw.win = false;
-              draw.livesLeft = 3;
-              draw.respawn = false;
-              draw.pos.y = height-height/3;
-              draw.godown = false;
-              draw.goup = false;
-              draw.timeleft = 30;
-              if (levels2 < 3)
+              if (mouseY> height/2 && mouseY < height-height/20)
               {
+                draw.lostLife();
+                draw.enemiesKilled = 0;
+                draw.win = false;
+                draw.livesLeft = 3;
+                draw.respawn = false;
+                draw.pos.y = height-height/3;
+                draw.godown = false;
+                draw.goup = false;
+
+
+                if (levels == 1)
+                {
+                  draw.enemiesLeft = 15;
+                  draw.timeleft = 60;
+                } else if (levels == 2)
+                {
+                  draw.enemiesLeft = 20;
+                  draw.timeleft = 65;
+                }
+
                 levels ++;
-                levels2++;
-              } else
-              {
-                levels  = 0;
-                levels2 = 0;
               }
             }
           }
+        } else 
+        {
+          text("Congratulations ! You have completed all the levels!", width/2, height/2);
+          text("Your score: " + draw.score, width/2, height/2+height/20);
+          fill(255);
         }
       } else
       {
@@ -183,16 +193,6 @@ void draw()
         draw.render();
       }
     }
-  } else if (levels == 2)
-  {
-    levels2 = 2;
-    level1.img = img[1];
-    levels = 1;
-  } else if (levels == 3)
-  {
-    levels2 = 3;
-    level1.img = img[2]; 
-    levels = 1;
   }
 } // End of draw()
 
@@ -340,6 +340,7 @@ void drawMenu()
 void onKetaiListSelection(KetaiList list)
 {
   String levelChoice = list.getSelection();
+
   // If statements to change levels
   if (levelChoice == "Level 1")
   {
@@ -354,14 +355,39 @@ void onKetaiListSelection(KetaiList list)
   {
     levels = 0;
   }
+
+  // For loop to adjust time left and enemies left for each particular level when user access it from the Menu instead from progressing
+  for (int i = objectsArray.size() - 1; i >= 0; i --)
+  {
+    BaseClass catt = objectsArray.get(i);
+    if (catt instanceof Cat)
+    {
+      if (levels == 1)
+      {
+        catt.enemiesLeft = 10;
+        catt.timeleft = 60;
+      } else if (levels == 2)
+      {
+        catt.enemiesLeft = 15;
+        catt.timeleft = 60;
+      } else if (levels == 3)
+      {
+        catt.enemiesLeft = 20;
+        catt.timeleft = 60;
+      }
+    }
+  }
 }
-// drawBg() used to draw the controls
+// drawBg() used to draw the background for each level
 void drawBg()
 {
-  pushMatrix();
-  // ....
-  // To be done ....
-  popMatrix();
+  for (int i = 1; i <= img.length; i++)
+  {
+    if (levels == i)
+    {
+      level1.img = img[i-1];
+    }
+  }
 }
 
 void checkCollisions()

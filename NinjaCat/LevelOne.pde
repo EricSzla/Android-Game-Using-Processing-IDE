@@ -4,7 +4,7 @@ class LevelOne extends Levels
   LevelOne(PImage image, PImage obstacle, PImage plat)
   {
     super(image, obstacle, plat);
-    cat.enemiesLeft = 15;
+    cat.enemiesLeft = 10;
     cat.timeleft = 60;
   }
 
