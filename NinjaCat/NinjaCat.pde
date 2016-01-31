@@ -54,7 +54,7 @@ PImage[] enemyFire;       // Used to store images for enemy fire
 PImage[] catFire;         // Used to store images for cat to shoot
 PImage[] img;             // Used to store background images
 PImage[] coins;           // Used to store images for coins
-PImage ground;            // Used to store ground image
+PImage[] ground;            // Used to store ground image
 PImage obst;              // Used to store obstacle image
 PImage lives;             // Used to store lives image
 
@@ -92,6 +92,7 @@ void setup()
   enemyWalk = new PImage[4];
   enemyFire = new PImage[10];
   coins = new PImage[6];
+  ground = new PImage[3];
 
   loadData();                           // Call load data function
 
@@ -100,7 +101,7 @@ void setup()
   objectsArray.add(cat);
   enemy = new Enemy();
   objectsArray.add(enemy);
-  level1 = new Levels(img[0], obst, ground);
+  level1 = new Levels(img[0], obst, ground[0]);
 }
 
 void draw()
@@ -262,6 +263,9 @@ void loadData()
   {
     img[i] = loadImage("levels/" + (i+1) + ".jpg");
     img[i].resize(displayWidth, displayHeight);
+
+    ground[i] = loadImage("levels/g" + (i+1) + ".png");
+    ground[i].resize(width, height/2);
   }
 
   // Load images for cat walk && enemy walk
@@ -291,8 +295,6 @@ void loadData()
   }
 
   // Load rest of the images
-  ground = loadImage("levels/ground.png");
-  ground.resize(width, height/2);
   obst = loadImage("levels/tower.png");
   obst.resize(width/10, height/10);
   lives = loadImage("Cat/lives.png");
@@ -364,14 +366,17 @@ void onKetaiListSelection(KetaiList list)
     {
       if (levels == 1)
       {
+        level1.platform = ground[0];
         catt.enemiesLeft = 10;
         catt.timeleft = 60;
       } else if (levels == 2)
       {
+        level1.platform = ground[1];
         catt.enemiesLeft = 15;
         catt.timeleft = 60;
       } else if (levels == 3)
       {
+        level1.platform = ground[2];
         catt.enemiesLeft = 20;
         catt.timeleft = 60;
       }
