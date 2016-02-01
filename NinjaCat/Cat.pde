@@ -1,12 +1,8 @@
 class Cat extends BaseClass
 {
-  int i;
-
-
   Cat(float x, float y, float y2)
   {
     super(x, y, y2);
-    this.i = 0;
     this.time = false;
   }
 
@@ -84,35 +80,6 @@ class Cat extends BaseClass
 
     if (mousePressed)
     {
-      // If statement to check if user clicked on the right hand side of the cat
-      // If so then inrement cat's position x
-      // And decrement the platform x position
-      if (mouseX > pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && livesLeft !=0)))
-      {
-        pos.x = pos.x + (speed/2);
-        level1.x2 = level1.x2 - (speed*2);
-        livesx = livesx - (speed*2);
-        // variable 'i' is used to draw appropriate image in render() method
-        if (i < 3)
-        {
-          i++;
-        } else
-        {
-          i = 0;
-        }
-      } else if (mouseX < pos.x)
-      {
-
-        pos.x = pos.x - speed;
-        if (i > 0)
-        {
-          i--;
-        } else
-        {
-          i = 2;
-        }
-      }
-
       // If statement to check if user clicked 'above' the cat if so boolean goup is changed
       // which will lead to cat jumping
       if (mouseY < height - (height/5))
@@ -127,9 +94,11 @@ class Cat extends BaseClass
       // If statement for shooting
       // If user clicks in right bottom corner, new Fire object is made and added to
       // the objectsArray
-      if (mouseX > width- width/10 && mouseX < width)
+      //if (mouseX > width- width/10 && mouseX < width)
+      if (mouseX > level1.circlex - level1.radius && mouseX < level1.circlex + level1.radius && livesLeft >= 1 && !win)
       {
-        if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
+        //if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
+        if (mouseY > level1.circley- level1.radius && mouseY < level1.circley + level1.radius)
         {
           if (frameCount >= 7)
           {

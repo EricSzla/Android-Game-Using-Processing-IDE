@@ -128,6 +128,10 @@ void draw()
     }
   } else if (levels >= 1 && levels <= 3)      // If users chooses level 1 then the game begins
   {
+    if (mousePressed)
+    {
+      controlls();
+    }
     soundPause(myTrack, true);
     if (levels == 1)
     {
@@ -235,6 +239,45 @@ void draw()
     }
   }
 } // End of draw()
+
+void controlls()
+{
+  /*triangle(0+width/20, height-height/8,0+width/8, height-height/5,0+width/8, height-height/15);
+   triangle(0+width/5, height-height/5,0+width/3.70, height-height/8,0+width/5, height-height/15);*/
+
+  // If statement to check if user clicked on the right hand side of the cat
+  // If so then inrement cat's position x
+  // And decrement the platform x position
+  
+  if((mouseX > 0+width/5 && mouseX < 0+width/3.70) && (mouseY > height - height/5 && mouseY < height-height/15))
+  //if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && cat.livesLeft !=0)))
+  {
+    cat.pos.x = cat.pos.x + (cat.speed/2);
+    level1.x2 = level1.x2 - (cat.speed*2);
+    cat.livesx = cat.livesx - (cat.speed*2);
+    // variable 'i' is used to draw appropriate image in render() method
+    if (cat.i < 3)
+    {
+      cat.i++;
+    } else
+    {
+      cat.i = 0;
+    }
+  } //else if (mouseX < cat.pos.x)
+  else if((mouseX > 0+width/20 && mouseX < 0+width/8) && (mouseY > height - height/5 && mouseY < height-height/15))
+  {
+
+    cat.pos.x = cat.pos.x - cat.speed;
+    if (cat.i > 0)
+    {
+      cat.i--;
+    } else
+    {
+      cat.i = 2;
+    }
+  }
+}
+
 
 void mousePressed()
 {

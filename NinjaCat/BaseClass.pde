@@ -21,6 +21,7 @@ abstract class BaseClass
   int enemiesLeft;
   int score;
   int timeleft;
+  int i;
 
 
   BaseClass()
@@ -47,6 +48,7 @@ abstract class BaseClass
     this.godown = false;
     this.goup = false;
     this.time = false;
+    this.i = 0;
 
     pos = new PVector(x, y);
     right = new PVector(x, y);

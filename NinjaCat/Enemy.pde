@@ -71,14 +71,14 @@ class Enemy extends BaseClass
     if (frameCount >= 15 && cat.pos.x < pos.x)
     {
 
-      if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
+      /*if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
       {
         Fire fire = new Fire("left");
         fire.pos.x = pos.x;
         fire.pos.y = pos.y;
         fire.pos.x = fire.pos.x + speed;
         objectsArray.add(fire);
-      }
+      }*/
       frameCount = 0;
     }
   } // end of update()
