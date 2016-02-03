@@ -23,7 +23,7 @@ class Levels
     this.radius = width/10;
 
     cat.enemiesLeft = 10;
-    cat.timeleft = 60;
+    cat.timeleft = 600;
   }
 
   void drawlevel()
@@ -35,8 +35,8 @@ class Levels
     text((int)cat.timeleft, width/2, height/2);
 
     // Red circle (controll) to shoot
-    circlex = centerx + (sin(theta) * radius);
-    circley = centery + (-cos(theta) * radius);
+    circlex = cos(theta) * radius;
+    circley = sin(theta) * radius;
     fill(255, 0, 0, 50);
     ellipse(centerx, centery, radius, radius);
     theta++;
@@ -46,8 +46,7 @@ class Levels
     fill(255, 0, 0, 50);
     triangle(0+width/20, height-height/8,0+width/8, height-height/5,0+width/8, height-height/15);
     triangle(0+width/5, height-height/5,0+width/3.70, height-height/8,0+width/5, height-height/15);
-    
-    triangle(width-width/10, height-height/3.70, width-width/17,height-height/7, width-width/22, height-height/2.5);   /////// TO BE FINISHED ADD ANOTHER ON THE LEFT
+    triangle(width * 0.87890625,height * 0.6945 ,width * 0.9375, height * 0.7638, width * 0.97, height * 0.60);
     popMatrix();
     
     // Display enemies killed
@@ -73,8 +72,8 @@ class Levels
     {
       x2 = 0;
     }
-
-    if (frameCount == 2)
+    
+    if (frameCount % rate == 0)
     {
       cat.timeleft--;
     }

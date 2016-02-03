@@ -80,25 +80,15 @@ class Cat extends BaseClass
 
     if (mousePressed)
     {
-      // If statement to check if user clicked 'above' the cat if so boolean goup is changed
-      // which will lead to cat jumping
-      if (mouseY < height - (height/5))
-      {
-        if (pos.y == height - (height/5) && goup == false)
-        {
-          goup = !goup;
-          soundPlay(jumpMusic);
-        }
-      }
-
       // If statement for shooting
       // If user clicks in right bottom corner, new Fire object is made and added to
       // the objectsArray
       //if (mouseX > width- width/10 && mouseX < width)
-      if (mouseX > level1.circlex - level1.radius && mouseX < level1.circlex + level1.radius && livesLeft >= 1 && !win)
+      //  - level1.radius
+      /*if (mouseX > level1.circlex && mouseX < level1.circlex + level1.radius && livesLeft >= 1 && !win)
       {
         //if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
-        if (mouseY > level1.circley- level1.radius && mouseY < level1.circley + level1.radius)
+        if (mouseY > level1.circley && mouseY < level1.circley + level1.radius)
         {
           if (frameCount >= 7)
           {
@@ -111,7 +101,7 @@ class Cat extends BaseClass
             frameCount = 0;
           }
         }
-      }
+      }*/
     } // end of if mouse pressed
   } // end of update
 

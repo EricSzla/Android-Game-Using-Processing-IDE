@@ -63,6 +63,7 @@ class Fire extends BaseClass
           {
             cat.win = true;
           }
+          canShoot = true;
           lostLife();
         }
       } else if (direction == "left")
@@ -74,12 +75,16 @@ class Fire extends BaseClass
           vibration.vibrate(200);
           cat.livesLeft --;
           cat.respawn = true;
+          enemyCanShoot = true;
           lostLife();
+          
         }
       }
       i++;
     } else  if (i == catFire.length-1)
     {
+      canShoot = true;
+      enemyCanShoot = true;
       // Removes the fire
       lostLife();
     }

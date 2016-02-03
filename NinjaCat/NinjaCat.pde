@@ -42,6 +42,7 @@ int levels2 = 0;
 int levels = 0;           // Used to choose between levels
 int stage = 0;            // Used to diffrenciate between talk stages in menu
 int GAME_STEEP = 0;
+int rate = 0;
 
 boolean drawLive = false; // Used to draw a powerUp after enemy dies
 boolean drawCoin = false; // Used to draw a powerUp after enemy dies
@@ -50,6 +51,8 @@ boolean add = true;
 boolean coinup = false;
 boolean liveup = false;
 boolean firstplay = false;
+boolean canShoot = true;
+boolean enemyCanShoot = true;
 
 String name;
 String localtion;
@@ -94,6 +97,7 @@ void setup()
   imageMode(CENTER);
   orientation(LANDSCAPE);               // Display in LANDSCAPE mode
   setFrameRate();
+  frameRate(60);
   smooth();
 
   vibration = new KetaiVibrate(this);
@@ -151,16 +155,19 @@ void draw()
       soundPause(level2Music, true);
     }
 
+
     drawBg();
     level1.updatelevel();      // Updates the level one
     level1.drawlevel();        // Draws the level one
-
     checkCollisions();
+
+
     if (coinup || liveup)
     {
       powerUpfxn();
     }
-    // For loop to manipulate the class objects
+
+
     for (int i = 0; i <= objectsArray.size()-1; i++)
     {
       BaseClass draw = objectsArray.get(i);
@@ -242,19 +249,28 @@ void draw()
 
 void controlls()
 {
-  /*triangle(0+width/20, height-height/8,0+width/8, height-height/5,0+width/8, height-height/15);
-   triangle(0+width/5, height-height/5,0+width/3.70, height-height/8,0+width/5, height-height/15);*/
-
-  // If statement to check if user clicked on the right hand side of the cat
+  // If statement to check if user clicked on the right controll
   // If so then inrement cat's position x
   // And decrement the platform x position
-  
-  if((mouseX > 0+width/5 && mouseX < 0+width/3.70) && (mouseY > height - height/5 && mouseY < height-height/15))
-  //if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && cat.livesLeft !=0)))
+
+  if ((mouseX > 0+width/5 && mouseX < 0+width/3.70) && (mouseY > height - height/5 && mouseY < height-height/15))
+    //if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && cat.livesLeft !=0)))
   {
+    // If there is any coin of live drawn on the screen then decrement its position
+    for (int i = 0; i <= objectsArray.size()-1; i++)
+    {
+      BaseClass draw = objectsArray.get(i);
+
+      if (draw instanceof Coin || draw instanceof Lives)
+      {
+        draw.livesx = draw.livesx - (cat.speed);
+      }
+    }
+
     cat.pos.x = cat.pos.x + (cat.speed/2);
     level1.x2 = level1.x2 - (cat.speed*2);
     cat.livesx = cat.livesx - (cat.speed*2);
+
     // variable 'i' is used to draw appropriate image in render() method
     if (cat.i < 3)
     {
@@ -263,8 +279,7 @@ void controlls()
     {
       cat.i = 0;
     }
-  } //else if (mouseX < cat.pos.x)
-  else if((mouseX > 0+width/20 && mouseX < 0+width/8) && (mouseY > height - height/5 && mouseY < height-height/15))
+  } else if ((mouseX > 0+width/20 && mouseX < 0+width/8) && (mouseY > height - height/5 && mouseY < height-height/15))
   {
 
     cat.pos.x = cat.pos.x - cat.speed;
@@ -275,6 +290,36 @@ void controlls()
     {
       cat.i = 2;
     }
+  } else if ((mouseX > width * 0.87890625 && mouseX < width * 0.9765625) && (mouseY > height * 0.59027777777778 && mouseY < height * 0.7638))
+  {
+    cat.pos.x = cat.pos.x + (cat.speed/2);
+    level1.x2 = level1.x2 - (cat.speed*2);
+    cat.livesx = cat.livesx - (cat.speed*2);
+
+    // variable 'i' is used to draw appropriate image in render() method
+    if (cat.i < 3)
+    {
+      cat.i++;
+    } else
+    {
+      cat.i = 0;
+    }
+
+    if (cat.pos.y == height - (height/5) && cat.goup == false)
+    {
+      cat.goup = !cat.goup;
+      soundPlay(jumpMusic);
+    }
+
+    for (int i = 0; i <= objectsArray.size()-1; i++)
+    {
+      BaseClass draw = objectsArray.get(i);
+
+      if (draw instanceof Coin || draw instanceof Lives)
+      {
+        draw.livesx = draw.livesx - (cat.speed);
+      }
+    }
   }
 }
 
@@ -282,7 +327,30 @@ void controlls()
 void mousePressed()
 {
   // If levels == 0, that means if the Menu is showed
-  if (levels == 0 && mouseY > height-height/10)
+  if (levels > 0)
+  {
+
+    // If statement for shooting
+    // If user clicks in shoot control, new Fire object is made and added to
+    // the objectsArray
+    if (mouseX > level1.centerx - level1.radius && mouseX < level1.centerx + level1.radius && cat.livesLeft >= 1 && !cat.win)
+    {
+      //if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
+      if (mouseY > level1.centery - level1.radius && mouseY < level1.centery + level1.radius)
+      {
+        if (canShoot)
+        {
+          canShoot = false;
+          soundPlay(shootMusic);
+          Fire fire = new Fire("right");
+          fire.pos.x = cat.pos.x;
+          fire.pos.y = cat.pos.y;
+          fire.pos.x = fire.pos.x + cat.speed;
+          objectsArray.add(fire);
+        }
+      }
+    }
+  } else if (levels == 0 && mouseY > height-height/10)
   {
     if (mouseX < width/3)
     {
@@ -447,7 +515,7 @@ void onKetaiListSelection(KetaiList list)
       {
         level1.platform = ground[0];
         catt.enemiesLeft = 10;
-        catt.timeleft = 60;
+        catt.timeleft = 600;
       } else if (levels == 2)
       {
         level1.platform = ground[1];
@@ -523,24 +591,34 @@ void checkCollisions()
 void setFrameRate()
 {
   /* Method which sets the frameRate depending on the screen size, the smaller the screen the smaller the frameRate */
+  println(width + " " + displayHeight);
 
-  if (displayWidth > 2500 && displayHeight > 1400)
+  if ( displayWidth < 1100 && displayHeight < 700 )
   {
-    frameRate(60);                        // Change the frameRate to 60
+    rate = 10;
+    frameRate(rate);
   } else if ( displayWidth > 1100 && displayHeight > 700)
   {
-    frameRate(25);                        // Change the frameRate to 25
-  } else if ( displayWidth < 1100 && displayHeight < 700 )
+    rate = 25;
+    frameRate(rate);                        // Change the frameRate to 25
+  } else if (displayWidth > 2500 && displayHeight > 1400)
   {
-    frameRate(10);
+    rate = 60;
+    frameRate(rate);                        // Change the frameRate to 60
+  } else
+  {
+    println("else");
   }
+  rate = 60;
 }
 
 void powerUpfxn()
 {
+
   if (liveup)
   {
-    if (frameCount % 30 < 15)
+    pushMatrix();
+    if (frameCount % rate == 2)
     {
       fill(c);
       text("Lives ++ !", cat.pos.x - width/10, cat.pos.y - height/10);
@@ -548,11 +626,13 @@ void powerUpfxn()
     {
       liveup = false;
     }
+    popMatrix();
   }
+
 
   if (coinup)
   {
-    if (frameCount % 30 < 15)
+    if (frameCount % rate == 2)
     {
       fill(d);
       text("+ 100 !", cat.pos.x + width/10, cat.pos.y - height/10);
