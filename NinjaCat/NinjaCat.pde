@@ -8,13 +8,6 @@
  * WiFi Direct, Near Field Communication etc.
  */
 
-/* TO DO */
-// drawBg() function ? 
-// if enough time different levels and new enemies ? 
-// Solve android sound issue 
-
-
-
 import ketai.ui.*;
 
 KetaiList menuList;
@@ -249,12 +242,10 @@ void draw()
 
 void controlls()
 {
-  // If statement to check if user clicked on the right controll
+  // If statement to check if user clicked on the  "go right" control
   // If so then inrement cat's position x
   // And decrement the platform x position
-
   if ((mouseX > 0+width/5 && mouseX < 0+width/3.70) && (mouseY > height - height/5 && mouseY < height-height/15))
-    //if (mouseX > cat.pos.x && !((mouseX > width- width/10 && mouseX < width) && (mouseY > height-height/10 && mouseY < height && cat.livesLeft !=0)))
   {
     // If there is any coin of live drawn on the screen then decrement its position
     for (int i = 0; i <= objectsArray.size()-1; i++)
@@ -271,7 +262,7 @@ void controlls()
     level1.x2 = level1.x2 - (cat.speed*2);
     cat.livesx = cat.livesx - (cat.speed*2);
 
-    // variable 'i' is used to draw appropriate image in render() method
+    // variable 'i' is used to draw appropriate image in cat.render() method
     if (cat.i < 3)
     {
       cat.i++;
@@ -279,7 +270,7 @@ void controlls()
     {
       cat.i = 0;
     }
-  } else if ((mouseX > 0+width/20 && mouseX < 0+width/8) && (mouseY > height - height/5 && mouseY < height-height/15))
+  } else if ((mouseX > 0+width/20 && mouseX < 0+width/8) && (mouseY > height - height/5 && mouseY < height-height/15)) // check if user clicked on go left control
   {
 
     cat.pos.x = cat.pos.x - cat.speed;
@@ -290,11 +281,10 @@ void controlls()
     {
       cat.i = 2;
     }
-  } else if ((mouseX > width * 0.87890625 && mouseX < width * 0.9765625) && (mouseY > height * 0.59027777777778 && mouseY < height * 0.7638))
+  } else if ((mouseX > width * 0.87890625 && mouseX < width * 0.9765625) && (mouseY > height * 0.59027777777778 && mouseY < height * 0.7638)) // Check if user clicked on jump right control
   {
     cat.pos.x = cat.pos.x + (cat.speed/2);
     level1.x2 = level1.x2 - (cat.speed*2);
-    cat.livesx = cat.livesx - (cat.speed*2);
 
     // variable 'i' is used to draw appropriate image in render() method
     if (cat.i < 3)
@@ -319,6 +309,24 @@ void controlls()
       {
         draw.livesx = draw.livesx - (cat.speed);
       }
+    }
+  } else if ((mouseX >=0+width/20 && mouseX <= width/8) && (mouseY >= height * 0.60 && mouseY <= height * 0.7638 )) // Check if user clicked on jump left control
+  {
+    cat.pos.x = cat.pos.x - (cat.speed); // Decrements cats position
+   
+    // variable 'i' is used to draw appropriate image in render() method
+    if (cat.i > 0)
+    {
+      cat.i--;
+    } else
+    {
+      cat.i = 3;
+    }
+
+    if (cat.pos.y == height - (height/5) && cat.goup == false)
+    {
+      cat.goup = !cat.goup;
+      soundPlay(jumpMusic);
     }
   }
 }
@@ -456,7 +464,7 @@ void drawMenu()
 {
   pushStyle();
   stroke(0);
-  // image used instead of background(img) as android mode didnt allow to use background method
+  // image used instead of background(img) as android mode don't allow to use background method
   image(img[0], displayWidth/2, displayHeight/2);
   image(menuCat, displayWidth-displayWidth/3, displayHeight/2);
   image(menuTalk, displayWidth/3, displayHeight/3);

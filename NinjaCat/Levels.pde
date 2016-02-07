@@ -23,7 +23,7 @@ class Levels
     this.radius = width/10;
 
     cat.enemiesLeft = 10;
-    cat.timeleft = 600;
+    cat.timeleft = 600;  // FOR DEBUGGING, TO BE CHANGED!
   }
 
   void drawlevel()
@@ -41,12 +41,13 @@ class Levels
     ellipse(centerx, centery, radius, radius);
     theta++;
 
-    // Controlls for going left and right
+    // Controlls for going left, right and to jump right
     pushMatrix();
     fill(255, 0, 0, 50);
     triangle(0+width/20, height-height/8,0+width/8, height-height/5,0+width/8, height-height/15);
     triangle(0+width/5, height-height/5,0+width/3.70, height-height/8,0+width/5, height-height/15);
     triangle(width * 0.87890625,height * 0.6945 ,width * 0.9375, height * 0.7638, width * 0.97, height * 0.60);
+    triangle(0+width/20,height * 0.60,0+width/15,height * 0.7638,width/8,height * 0.6945);
     popMatrix();
     
     // Display enemies killed

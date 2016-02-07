@@ -31,7 +31,7 @@ class Enemy extends BaseClass
   void update()
   {
     // If statement to check if enemy has to jump
-    if (level1.x*2 +level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/5)))
+    if (level1.x*2 + level1.x2 <= pos.x && level1.x*2.5 + level1.x2 >= pos.x && pos.y == (height - (height/5)))
     {
       // If it is change goup to true
       goup = true;
@@ -56,6 +56,7 @@ class Enemy extends BaseClass
     }
     // Keep moving left by dicrementing pos.x
     pos.x = pos.x - speed;
+
     if (i > 0)
     {
       i--;
@@ -68,22 +69,22 @@ class Enemy extends BaseClass
     // If user is in range, new Fire object is made and added to
     // the objectsArray
 
-    if (cat.pos.x < pos.x)
-    {
-
-      if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
-      {
-        if (enemyCanShoot)
-        {
-          Fire fire = new Fire("left");
-          fire.pos.x = pos.x;
-          fire.pos.y = pos.y;
-          fire.pos.x = fire.pos.x + speed;
-          objectsArray.add(fire);
-          enemyCanShoot = false;
-        }
-      }
-    }
+    /*if (cat.pos.x < pos.x)
+     {
+     
+     if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
+     {
+     if (enemyCanShoot)
+     {
+     Fire fire = new Fire("left");
+     fire.pos.x = pos.x;
+     fire.pos.y = pos.y;
+     fire.pos.x = fire.pos.x + speed;
+     objectsArray.add(fire);
+     enemyCanShoot = false;
+     }
+     }
+     }*/    // REMOVE THE COMMENT AFTER DEBUGGING !
   } // end of update()
 
   void lostLife()

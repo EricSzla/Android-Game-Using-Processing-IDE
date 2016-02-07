@@ -77,34 +77,7 @@ class Cat extends BaseClass
         pos.y = pos.y + speed;
       }
     }
-
-    if (mousePressed)
-    {
-      // If statement for shooting
-      // If user clicks in right bottom corner, new Fire object is made and added to
-      // the objectsArray
-      //if (mouseX > width- width/10 && mouseX < width)
-      //  - level1.radius
-      /*if (mouseX > level1.circlex && mouseX < level1.circlex + level1.radius && livesLeft >= 1 && !win)
-      {
-        //if (mouseY > height-height/10 && mouseY < height && livesLeft !=0)
-        if (mouseY > level1.circley && mouseY < level1.circley + level1.radius)
-        {
-          if (frameCount >= 7)
-          {
-            soundPlay(shootMusic);
-            Fire fire = new Fire("right");
-            fire.pos.x = pos.x;
-            fire.pos.y = pos.y;
-            fire.pos.x = fire.pos.x + speed;
-            objectsArray.add(fire);
-            frameCount = 0;
-          }
-        }
-      }*/
-    } // end of if mouse pressed
-  } // end of update
-
+  }
   void lostLife()
   {
     // Reset cat position, enemy position and the platform position
@@ -113,6 +86,18 @@ class Cat extends BaseClass
     level1.x = width/2;
     level1.x2 = 0;
     enemy.pos.x = width + width/2;
+
+    // Remove all the coins and lives from the screen
+    for (int j = objectsArray.size() - 1; j >= 0; j --)
+    {
+      BaseClass life = objectsArray.get(j);
+      if (life instanceof Lives || life instanceof Coin) // Check the type of an object
+      {
+        drawLive = false;
+        drawCoin = false;
+        objectsArray.remove(life);
+      }
+    }
   }
 
   void gameOverfx()
