@@ -3,6 +3,10 @@
 #### Objective.
 OOP Assignment 2, android game called Ninja Cat developed using Processing with Android Module. The goal in the game is to kill as many opponents and  collects as much coins as possible.
 
+<b>VIDEO OF GAMEPLAY</b>
+
+https://vimeo.com/154715614
+
 #### Requirements.
 Game should run on any device with Android version 5.1.1 or higher, yet the game was tested using Samsung Galaxy Note 4, and this is the device I would recommend to use because of it's big screen size.
 
@@ -16,6 +20,7 @@ In order to run the game on android device using processing follow the steps:
 ![Connect Device](https://cloud.githubusercontent.com/assets/15609881/12915887/249a3cdc-cf26-11e5-873c-ceedb56b4abd.png)
 
 <b>3. Run the program.</b>
+
 Processing is going to build an Android project and install it on the device.
 ![Build the project](https://cloud.githubusercontent.com/assets/15609881/12916001/fa6d00e2-cf26-11e5-8928-24d15dc2a565.png)
 
