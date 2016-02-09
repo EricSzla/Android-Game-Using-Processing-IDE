@@ -2,7 +2,7 @@
 
 ##VIDEO OF GAMEPLAY
 
-https://vimeo.com/154715614
+https://vimeo.com/154764745
 
 ## Objective.
 OOP Assignment 2, android game called Ninja Cat developed using Processing with Android Module. The goal in the game is to kill as many opponents and  collects as much coins as possible.
