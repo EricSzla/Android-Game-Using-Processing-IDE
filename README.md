@@ -36,7 +36,12 @@ At the very first stage the cat in the menu will ask the user for a name, user c
 ![keyboard](https://cloud.githubusercontent.com/assets/15609881/12916146/134392ce-cf28-11e5-9a95-bd04ed312ad2.png)
 
 #### Controls.
+![Controls](https://cloud.githubusercontent.com/assets/15609881/12917493/a3b900e2-cf31-11e5-90b1-f8aa68b096c2.png)
 
 #### Levels.
+<b>Level 1</b>
 
+<b>Level 2</b>
+
+<b>Level 3</b>
 
