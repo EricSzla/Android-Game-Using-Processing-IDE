@@ -1,7 +1,5 @@
 class Lives extends BaseClass implements PowerUp
 {
-  /* TO DO */
-  // Make live touch the player ! 
   float llx, lly;
 
   Lives(float x, float y)

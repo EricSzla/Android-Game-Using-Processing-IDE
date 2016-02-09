@@ -69,22 +69,22 @@ class Enemy extends BaseClass
     // If user is in range, new Fire object is made and added to
     // the objectsArray
 
-    /*if (cat.pos.x < pos.x)
-     {
-     
-     if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
-     {
-     if (enemyCanShoot)
-     {
-     Fire fire = new Fire("left");
-     fire.pos.x = pos.x;
-     fire.pos.y = pos.y;
-     fire.pos.x = fire.pos.x + speed;
-     objectsArray.add(fire);
-     enemyCanShoot = false;
-     }
-     }
-     }*/    // REMOVE THE COMMENT AFTER DEBUGGING !
+    if (cat.pos.x < pos.x)
+    {
+
+      if (cat.pos.x > pos.x - width/3 && cat.livesLeft != 0)
+      {
+        if (enemyCanShoot)
+        {
+          Fire fire = new Fire("left");
+          fire.pos.x = pos.x;
+          fire.pos.y = pos.y;
+          fire.pos.x = fire.pos.x + speed;
+          objectsArray.add(fire);
+          enemyCanShoot = false;
+        }
+      }
+    }
   } // end of update()
 
   void lostLife()
