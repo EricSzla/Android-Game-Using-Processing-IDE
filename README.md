@@ -1,6 +1,6 @@
-#Assignment 2
+# Ninja Cat
 
-##VIDEO OF GAMEPLAY
+## VIDEO OF GAMEPLAY
 
 https://vimeo.com/154764745
 
